@@ -2,8 +2,12 @@
 
 ### Install Dependencies based on the `package.json` file: 
 
-`npm i`
+```
+npm i
+```
 
 ### How to run the tests: 
 
-`npx playwright test`
+```
+npx playwright test
+```
