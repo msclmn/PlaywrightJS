@@ -1,109 +1,167 @@
 const { chromium } = require('playwright');
 
 class Actions {
-    constructor() {
+    constructor() 
+    {
         this.browser = null;
         this.page = null;
         this.context = null;
     }
 
-    async launchBrowser(headless = true) {
+    async launchBrowser(headless = true) 
+    {
         this.browser = await chromium.launch({ headless });
         this.context = await this.browser.newContext();
         this.page = await this.context.newPage();
     }
 
-    async closeBrowser() {
-        await this.browser.close();
+    async closeBrowser() 
+    {
+        if (this.browser) await this.browser.close();
     }
 
-    async navigateTo(url) {
-        await this.page.goto(url);
+    async navigateTo(url) 
+    {
+        try {
+            await this.page.goto(url, { waitUntil: 'load' });
+            return true;
+        } catch (error) {
+            console.error(`Navigation to ${url} failed:`, error);
+            return false;
+        }
     }
 
-    async click(selector) {
-        await this.page.click(selector);
-    }
-
-    async type(selector, text) {
-        await this.page.fill(selector, text);
-    }
-
-    async selectOption(selector, value) {
-        await this.page.selectOption(selector, value);
-    }
-
-    async check(selector) {
-        await this.page.check(selector);
-    }
-
-    async uncheck(selector) {
-        await this.page.uncheck(selector);
-    }
-
-    async waitForSelector(selector, timeout = 30000) {
-        await this.page.waitForSelector(selector, { timeout });
+    async getTitle() 
+    {
+        const title = await this.page.title()
+        return title;
     }
     
-    async getTitle(){
-        return await this.page.title();
+    async click(selector)
+    {
+        const click = await this.page.click(selector);
+        return click;
+    }
+    
+    async sendKeys(selector, text)
+    {
+        const sendKeys = await this.page.fill(selector, text);
+        return sendKeys;
+    }
+    
+    async selectOption(selector, value)
+    {
+        const selectOption = await this.page.selectOption(selector, value);
+        return selectOption;
+    }
+    
+    async check(selector)
+    {
+        const check = await this.page.check(selector);
+        return check;
+    }
+    
+    async uncheck(selector)
+    {
+        const uncheck = await this.page.uncheck(selector);
+        return uncheck;
+    }
+    
+    async waitForSelector(selector, waitTime = 30000)
+    {
+        const waitForSelector = await this.page.waitForSelector(selector, { waitTime });
+        return waitForSelector;
     }
 
     async getText(selector) {
-        return await this.page.textContent(selector);
+        const text = await this.page.textContent(selector);
+        return text;
     }
 
     async getAttribute(selector, attribute) {
-        return await this.page.getAttribute(selector, attribute);
+        const attributeValue = await this.page.getAttribute(selector, attribute);
+        return attributeValue;
     }
 
     async isVisible(selector) {
-        return await this.page.isVisible(selector);
+        const visible = await this.page.isVisible(selector);
+        return visible;
     }
 
     async isEnabled(selector) {
-        return await this.page.isEnabled(selector);
+        const enabled = await this.page.isEnabled(selector);
+        return enabled;
     }
 
     async takeScreenshot(path) {
-        await this.page.screenshot({ path });
+        const screenshot = await this.page.screenshot({ path });
+        return screenshot;
     }
 
     async dragAndDrop(sourceSelector, targetSelector) {
-        await this.page.dragAndDrop(sourceSelector, targetSelector);
+        const dragAndDrop = await this.page.dragAndDrop(sourceSelector, targetSelector);
+        return dragAndDrop;
     }
 
     async hover(selector) {
-        await this.page.hover(selector);
+        const hover = await this.page.hover(selector);
+        return hover;
     }
 
-    async waitForTimeout(timeout) {
-        await this.page.waitForTimeout(timeout);
+    async waitForTimeout(waitTime) {
+        const timeoutWait = await this.page.waitForTimeout(waitTime);
+        return timeoutWait;
     }
 
     async pressKey(selector, key) {
-        await this.page.press(selector, key);
+        const press = await this.page.press(selector, key);
+        return press;
     }
 
     async reloadPage() {
-        await this.page.reload();
+        const reload = await this.page.reload();
+        return reload;
     }
 
     async goBack() {
-        await this.page.goBack();
+        const back = await this.page.goBack();
+        return back;
     }
 
     async goForward() {
-        await this.page.goForward();
+        const forward = await this.page.goForward();
+        return forward;
     }
 
     async setViewportSize(width, height) {
-        await this.page.setViewportSize({ width, height });
+        const viewport = await this.page.setViewportSize({ width, height });
+        return viewport;
     }
 
     async executeScript(script) {
-        return await this.page.evaluate(script);
+        const scriptResult = await this.page.evaluate(script);
+        return scriptResult;
     }
+
+
 }
 
-module.exports = Actions;
+// Helper wrapper to automatically resolve async methods
+function wrapAsyncMethods(actionsInstance) {
+    return new Proxy(actionsInstance, {
+        get(target, prop) {
+            const original = target[prop];
+            if (typeof original === 'function') {
+                return (...args) => {
+                    const result = original.apply(target, args);
+                    // Automatically resolve the promise and return its value
+                    return result instanceof Promise ? result.then((res) => res) : result;
+                };
+            }
+            return original;
+        },
+    });
+}
+
+
+module.exports = { Actions, wrapAsyncMethods };

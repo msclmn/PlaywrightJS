@@ -1,15 +1,29 @@
 const { test, expect } = require('@playwright/test');
-const Actions = require('../../Utilities/BaseActions/Actions');
-const actions = new Actions();
+const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions');
 
-test('Navigate to Google and verify title.', async () => {
+// Use wrapped Actions for test simplicity
+const actions = wrapAsyncMethods(new Actions());
 
-    await actions.launchBrowser(false); //true = headless browser
-    await actions.navigateTo('https://google.com');
+// Wrapper for test execution to handle browser lifecycle
+function runTest(testLogic) {
+    return async () => {
+        try {
+            await actions.launchBrowser(false); // True = headless
+            await testLogic(actions); // Execute the test logic
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            await actions.closeBrowser(); // Close browser in any case
+        }
+    };
+}
+
+test('Navigate to Google and verify title.', runTest(async () => 
+{
+    const navigationSuccess = await actions.navigateTo('https://www.google.com');
+    expect(navigationSuccess).toBe(true);
 
     const title = await actions.getTitle();
-    await actions.closeBrowser();
-
     expect(title).toBe('Google');
-});
-
+}));
