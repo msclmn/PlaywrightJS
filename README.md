@@ -1,6 +1,6 @@
 # E2E tests for Playwright with JavaScript
 
-### Install Dependencies based on the `package.son` file: 
+### Install Dependencies based on the `package.json` file: 
 
 `npm i`
 
