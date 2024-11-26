@@ -1,5 +1,4 @@
 // Testing from this Swagger UI: https://fakerestapi.azurewebsites.net/index.html
-
 class ActivityModel {
     constructor(id, title, dueDate, completed) {
         this.id = id;
