@@ -6,5 +6,5 @@ test('Navigate to Google and verify title.', runTest(async (actions) => {
     expect(navigationSuccess).toBe(true);
 
     const title = await actions.getTitle();
-    expect(title).toBe('Googley');
+    expect(title).toBe('Google');
 }));
