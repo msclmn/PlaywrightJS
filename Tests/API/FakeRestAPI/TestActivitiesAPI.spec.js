@@ -26,5 +26,39 @@ test.describe('Activities API Tests', () => {
         });
     });
 
-    // Add more API tests as needed
+    for (let id =1 ; id <= 30; id++){
+        test(`Get Activity by Id = ${id}`, async () => { 
+            const activityById = await activitiesClient.getActivityById(id); 
+            expect(activityById).not.toBeNull(); 
+            expect(activityById).toHaveProperty('id', id); 
+            expect(activityById).toHaveProperty('title', `Activity ${id}`); 
+            expect(activityById).toHaveProperty('dueDate'); 
+            
+            //'completed' property even = true, odd = false
+            if (id %2 ===0)
+            {
+                expect(activityById).toHaveProperty('completed', true); 
+            }
+            else
+            {
+                expect(activityById).toHaveProperty('completed', false); 
+            }
+    });
+    }
+
+    for (let id =1 ; id <= 30; id++){
+        test(`Put Activity by Id = ${id}`, async () => { 
+            const title = `Automation API Test ${id}`;
+            const completed = id % 2 === 0; //true if id = even, odd if id == odd
+
+            const putActivityById = await activitiesClient.putActivityById(id, title, completed); 
+            
+            expect(activityById).not.toBeNull(); 
+            expect(activityById).toHaveProperty('id', id); 
+            expect(activityById).toHaveProperty('title', title); 
+            expect(activityById).toHaveProperty('dueDate'); 
+            expect(activityById).toHaveProperty('completed', completed); 
+           
+    });
+    }
 });
