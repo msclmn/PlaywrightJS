@@ -5,6 +5,8 @@ module.exports = defineConfig({
     timeout: 30000,
     use: {
         browserName: 'chromium',
+        //browserName: 'firefox',
+        //browserName: 'webkit',
         headless: true,
         viewport: { width: 1280, height: 720 },
         screenshot: 'off', // I have manual screenshot in testLogic

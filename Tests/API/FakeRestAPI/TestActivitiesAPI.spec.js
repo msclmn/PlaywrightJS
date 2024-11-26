@@ -58,6 +58,7 @@ test.describe('Activities API Tests', () => {
             expect(activityById).toHaveProperty('title', title); 
             expect(activityById).toHaveProperty('dueDate'); 
             expect(activityById).toHaveProperty('completed', completed); 
+           
     });
     }
 });

@@ -57,8 +57,8 @@ class NavigationMenu
 
     async clickGoBackButton()
     {
-        const click = await actions.click(this.locators.goBackButton);
-        return click;
+      const click = await actions.click(this.locators.goBackButton);
+      return click;
     }
     async clickBlog() 
     {
