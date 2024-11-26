@@ -9,5 +9,12 @@ npm i
 ### How to run the tests: 
 
 ```
-npx playwright test
+npx playwright test and name of test, example npx playwright test TestNavMenuButtons.spec.js
 ```
+npx playwright test (Runs test without providing the actual path)
+
+npx playwright test --headed (Runs in headed mode)
+
+npx playwright test --debug so for example npx playwright test TestNavMenuButtons.spec.js --debug
+
+npx playwright test --ui

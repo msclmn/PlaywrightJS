@@ -7,6 +7,7 @@ class NavigationMenu
     constructor(page) {
         this.page = page;
         actions.page = page;
+        this.goBackButton = page.locator("a.btn.btn-green[href='index.html']")
 
         // Locators as variables 
         this.locators = {
@@ -16,7 +17,7 @@ class NavigationMenu
             portfolioLink: '#nav a[href="portfolio.html"]',
             contactLink: '#nav a[href="contact.html"]',
             animatedDiv: '#nav .animation.start-home',
-            goBackButton: 'a.btn.btn-green[href="index.html"]',
+            //goBackButton: 'a.btn.btn-green[href="index.html"]',
             textPageTitle: '#title',
         };
     }
@@ -57,8 +58,7 @@ class NavigationMenu
 
     async clickGoBackButton()
     {
-        const click = await actions.click(this.locators.goBackButton);
-        return click;
+        await this.goBackButton.click();
     }
     async clickBlog() 
     {
