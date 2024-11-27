@@ -1,7 +1,8 @@
 const { test, expect } = require('@playwright/test');
 const { NavigationMenu } = require('../../../Pages/LambdaTestPlayground/NavigationMenu');
-const { runTest } = require('../../SetupTest');
 const { LoginPage } = require('../../../Pages/LambdaTestPlayground/LoginPage');
+const { runTest } = require('../../SetupTest');
+
 
 test('Navigate through the site using the top navigation bar.', runTest(async ({ page }) => {
     const navigationMenu = new NavigationMenu(page);
@@ -42,9 +43,10 @@ test('Navigate through the site using the top navigation bar.', runTest(async ({
 
     //User Login
     await navigationMenu.hoverMyAccountNav();
-    navigationMenu.clickLoginOptionInMyAccount();
-    loginPage.sendKeysToEmailAddressField("november26@mailinator.com");
-    loginPage.sendKeysToPasswordField("Password1!");
+    await navigationMenu.clickLoginOptionInMyAccount();
+    await loginPage.sendKeysToEmailAddressField("november26@mailinator.com");
+    await loginPage.sendKeysToPasswordField("Password1!");
+    await loginPage.clickLoginButton();
 
     await navigationMenu.hoverMyAccountNav();
     const isDashboardDisplayed = await navigationMenu.isDashboardDisplayed();
