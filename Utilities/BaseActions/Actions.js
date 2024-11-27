@@ -164,13 +164,27 @@ class Actions {
     async isVisible(selector) {
         try 
         {
-            return await this.page.isVisible(selector);
+            await this.page.isVisible(selector);
+            return true;
         } 
         catch (error) 
         {
             console.error(`Failed to check visibility of ${selector}:`, error);
             return false;
         }
+    }
+
+    async isNotVisible(selector, timeout = 30000) { 
+        try 
+        { 
+            await this.page.waitForSelector(selector, { state: 'hidden', timeout }); 
+            return true; 
+        } 
+        catch (error) 
+        { 
+            console.error(`Failed to confirm ${selector} is not visible:`, error); 
+            return false; 
+        } 
     }
 
     async isEnabled(selector) {
