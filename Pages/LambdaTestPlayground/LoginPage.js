@@ -16,6 +16,11 @@ class LoginPage
         }
     }
 
+    async goTo()
+    {
+      await this.page.goTo("https://ecommerce-playground.lambdatest.io")
+    }
+    
     async sendKeysToEmailAddressField(text) 
     { 
         const sendKeys = await actions.sendKeys(this.locators.textFieldEmailAddress, text); 
