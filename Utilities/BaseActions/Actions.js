@@ -149,6 +149,18 @@ class Actions {
         }
     }
 
+    async getValue(selector) {
+      try 
+      {
+          return await this.page.inputValue(selector);
+      } 
+      catch (error) 
+      {
+          console.error(`Failed to get value of ${selector}:`, error);
+          return false;
+      }
+  }
+
     async getAttribute(selector, attribute) {
         try 
         {
