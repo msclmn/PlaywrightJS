@@ -46,10 +46,6 @@ test('Navigate through the site using the top navigation bar.', runTest(async ({
     navigationMenu.clickLoginOptionInMyAccount();
 
     await loginPage.sendKeysToLogin(dataSet.textFieldEmailAddress, dataSet.textFieldPassword);
-
-    //loginPage.sendKeysToEmailAddressField("november26@mailinator.com");
-    //loginPage.sendKeysToPasswordField("Password1!");
-
     await navigationMenu.hoverMyAccountNav();
     const isDashboardDisplayed = await navigationMenu.isDashboardDisplayed();
     expect(isDashboardDisplayed).toBe(true, 'Dashboard option should be displayed after user is logged in.'); //using this for now until we get My Account page POMS up

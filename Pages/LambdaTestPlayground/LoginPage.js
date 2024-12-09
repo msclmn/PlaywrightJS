@@ -27,13 +27,7 @@ class LoginPage
         const sendKeysPassword = await actions.sendKeys(this.locators.textFieldPassword, text);
         return sendKeysEmail & sendKeysPassword;
     }
-/*
-    async sendKeysToPasswordField(text) 
-    { 
-        const sendKeys = await actions.sendKeys(this.locators.textFieldPassword, text); 
-        return sendKeys;
-    }
-*/
+
     async clickLoginButton()
     {
         const click = await actions.click(this.locators.buttonLogin)
