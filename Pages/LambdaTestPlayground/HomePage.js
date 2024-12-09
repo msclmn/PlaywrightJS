@@ -5,5 +5,14 @@ const actions = wrapAsyncMethods(new Actions());
 
 class HomePage 
 {
+    constructor(page) {
+        this.page = page;
+        actions.page = page;
+
+        this.locators = {
+            buttonPreviousCarousel: '',
+            buttonNextCarousel: '',
+        }
+    }
 
 }
