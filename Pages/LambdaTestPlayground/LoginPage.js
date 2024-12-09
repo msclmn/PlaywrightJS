@@ -21,18 +21,19 @@ class LoginPage
       await this.page.goTo("https://ecommerce-playground.lambdatest.io")
     }
     
-    async sendKeysToEmailAddressField(text) 
+    async sendKeysToLogin(text) 
     { 
-        const sendKeys = await actions.sendKeys(this.locators.textFieldEmailAddress, text); 
-        return sendKeys;
+        const sendKeysEmail = await actions.sendKeys(this.locators.textFieldEmailAddress, text); 
+        const sendKeysPassword = await actions.sendKeys(this.locators.textFieldPassword, text);
+        return sendKeysEmail & sendKeysPassword;
     }
-
+/*
     async sendKeysToPasswordField(text) 
     { 
         const sendKeys = await actions.sendKeys(this.locators.textFieldPassword, text); 
         return sendKeys;
     }
-
+*/
     async clickLoginButton()
     {
         const click = await actions.click(this.locators.buttonLogin)

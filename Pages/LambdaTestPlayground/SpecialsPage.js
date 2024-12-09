@@ -39,59 +39,53 @@ class SpecialMenu
 
     async clickSpecialTab()
     {
-      const click = await actions.click(this.locators.navSpecial); 
-      return click;
+      const specialTab = await actions.click(this.locators.navSpecial);
+      return specialTab;
     }
 
-    async isSpecialOffersHeaderVisible() 
+    async isSpecialOffersHeaderVisible()
     {
-      return await actions.isVisible(this.locators.specialOffersHeader);
+      const specialOfferTxt = await actions.isVisible(this.locators.specialOffersHeader);
+      return specialOfferTxt;
     }
 
-    async allCollapsingArrowsVisible() 
-    {
-      return await actions.isVisible(this.locators.allCollapsingArrows);
+    async allCollapsingArrowsVisible()
+    { 
+      const collapsingArrows = await actions.isVisible(this.locators.allCollapsingArrows);
+      return collapsingArrows;
     }
 
-    async isMinimumPriceFieldVisible() 
+    async isMinimumPriceFieldVisible()
     {
-      return await actions.isVisible(this.locators.minimumPriceField);
+      const minPriceField = await actions.isVisible(this.locators.minimumPriceField);
+      return minPriceField;
     }
 
-    async isMaximumPriceFieldVisible() 
+    async isMaximumPriceFieldVisible()
     {
-      return await actions.isVisible(this.locators.maximumPriceField);
+      const maxPriceField = await actions.isVisible(this.locators.maximumPriceField);
+      return maxPriceField
     }
 
-    async isGridViewIconVisible() 
+    async isGridViewIconVisible()
     {
-      return await actions.isVisible(this.locators.gridViewIconBtn);
+      const gridViewIcon = await actions.isVisible(this.locators.gridViewIconBtn);
+      return gridViewIcon;
     }
 
-    async isListViewIconVisible() 
+    async isListViewIconVisible()
     {
-      return await actions.isVisible(this.locators.listViewIconBtn);
+      const listViewIcon = await actions.isVisible(this.locators.listViewIconBtn);
+      return listViewIcon;
     }
 
     async isProductCompareLinkVisible() {
       const isVisible = await actions.isVisible(this.locators.productCompareLink);
-      if (isVisible) {
-          const text = await actions.getText(this.locators.productCompareLink); // Assuming actions.getText fetches the text content
-          console.log(`Text content of Product Compare link: ${text}`);
-      } else {
-          console.log('Product Compare link is not visible');
-      }
       return isVisible;
   }
 
     async isCopyrightTextVisible() {
       const isVisible = await actions.isVisible(this.locators.copyrightText);
-      if (isVisible) {
-          const text = await actions.getText(this.locators.copyrightText); // Assuming actions.getText fetches the text content
-          console.log(`Text content of Copyright: ${text}`);
-      } else {
-          console.log('Copyright text is not visible');
-      }
       return isVisible;
 }
 

@@ -20,13 +20,15 @@ class Cameras
     // Generalized function to fill either price field
     async sendKeysPriceField(field, value) {
       const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
-      await actions.sendKeys(selector, value.toString());
+      const sendText = await actions.sendKeys(selector, value.toString());
+      return sendText;
   }
 
     // Method to get field value
     async getPriceFieldValue(field) {
       const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
-      return await actions.getValue(selector); // Assuming `actions.getValue` fetches input value
+      const getValue = actions.getValue(selector);
+      return getValue;
   }
 
     async productFilterDropdown(dropdown) {

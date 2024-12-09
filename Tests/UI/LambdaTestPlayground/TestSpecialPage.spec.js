@@ -3,7 +3,7 @@ const { SpecialMenu } = require('../../../../PlaywrightJS/Pages/LambdaTestPlaygr
 const { Cameras } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/CamerasPage');
 const { runTest } = require('../../SetupTest');
 
-test('Verify the primary headers are displayed on the Special page', runTest(async ({ page }) => {
+test.only('Verify the primary headers are displayed on the Special page', runTest(async ({ page }) => {
 
   const specialMenu = new SpecialMenu(page)
   const websiteLink = 'https://ecommerce-playground.lambdatest.io/';
@@ -34,10 +34,8 @@ test('Verify the primary headers are displayed on the Special page', runTest(asy
   expect(await specialMenu.isGridViewIconVisible()).toBeTruthy();
   expect(await specialMenu.isListViewIconVisible()).toBeTruthy();
   const productCompareLink = await specialMenu.isProductCompareLinkVisible();
-  console.log(`Product Compare link visible? ${productCompareLink}`);
   expect(productCompareLink).toBe(true);
   const copyrightText = await specialMenu.isCopyrightTextVisible();
-  console.log(`Is copyright text visible? ${copyrightText}`);
   expect(copyrightText).toBe(true);
 }));
 
@@ -58,7 +56,7 @@ test('Verify a price range can be selected from the fields', runTest(async({ pag
   expect(maxPriceValue).toBe('500');
 }))
 
-test.only('Verify the product filter dropdown displays the proper options', runTest(async({ page }) => {
+test('Verify the product filter dropdown displays the proper options', runTest(async({ page }) => {
   const camerasMenu = new Cameras(page)
   const websiteLink = 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33';
   await page.goto(`${websiteLink}`);
