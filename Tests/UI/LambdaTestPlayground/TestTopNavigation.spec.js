@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { NavigationMenu } = require('../../../Pages/LambdaTestPlayground/NavigationMenu');
 const { LoginPage } = require('../../../Pages/LambdaTestPlayground/LoginPage');
 const { runTest } = require('../../SetupTest');
-
+const dataSet = JSON.parse(JSON.stringify(require('../../../Utilities/TestTopNavigation.json')));
 
 test('Navigate through the site using the top navigation bar.', runTest(async ({ page }) => {
     const navigationMenu = new NavigationMenu(page);
@@ -44,10 +44,8 @@ test('Navigate through the site using the top navigation bar.', runTest(async ({
     //User Login
     await navigationMenu.hoverMyAccountNav();
     await navigationMenu.clickLoginOptionInMyAccount();
-    await loginPage.sendKeysToEmailAddressField("november26@mailinator.com");
-    await loginPage.sendKeysToPasswordField("Password1!");
+    await loginPage.sendKeysToLogin(dataSet.textFieldEmailAddress, dataSet.textFieldPassword);
     await loginPage.clickLoginButton();
-
     await navigationMenu.hoverMyAccountNav();
     const isDashboardDisplayed = await navigationMenu.isDashboardDisplayed();
     expect(isDashboardDisplayed).toBe(true, 'Dashboard option should be displayed after user is logged in.'); //using this for now until we get My Account page POMS up

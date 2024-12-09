@@ -16,16 +16,16 @@ class LoginPage
         }
     }
 
-    async sendKeysToEmailAddressField(text) 
-    { 
-        const sendKeys = await actions.sendKeys(this.locators.textFieldEmailAddress, text); 
-        return sendKeys;
+    async goTo()
+    {
+      await this.page.goTo("https://ecommerce-playground.lambdatest.io")
     }
-
-    async sendKeysToPasswordField(text) 
+    
+    async sendKeysToLogin(text) 
     { 
-        const sendKeys = await actions.sendKeys(this.locators.textFieldPassword, text); 
-        return sendKeys;
+        const sendKeysEmail = await actions.sendKeys(this.locators.textFieldEmailAddress, text); 
+        const sendKeysPassword = await actions.sendKeys(this.locators.textFieldPassword, text);
+        return sendKeysEmail & sendKeysPassword;
     }
 
     async clickLoginButton()
