@@ -5,14 +5,15 @@ const { test, expect } = require('@playwright/test');
 const { ActivitiesClient } = require('../../../Utilities/APIClient/FakeRestAPI/ActivitiesClient');
 
 test.describe('Activities API Tests', () => {
-    let activitiesClient;
 
-    test.beforeAll(async () => {
-        activitiesClient = new ActivitiesClient();
-        await activitiesClient.initialize(); // Initialize the client before using it
-    });
+    // test.beforeAll(async () => {
+    //     activitiesClient = new ActivitiesClient();
+    //     await activitiesClient.initialize(); // Initialize the client before using it
+    // });
 
     test('Get all activities', async () => {
+        const activitiesClient = new ActivitiesClient();
+        await activitiesClient.initialize();
         const activities = await activitiesClient.getActivities();
         expect(activities).not.toBeNull();
         expect(Array.isArray(activities)).toBeTruthy();
@@ -28,6 +29,8 @@ test.describe('Activities API Tests', () => {
 
     for (let id =1 ; id <= 30; id++){
         test(`Get Activity by Id = ${id}`, async () => { 
+            const activitiesClient = new ActivitiesClient();
+            await activitiesClient.initialize();
             const activityById = await activitiesClient.getActivityById(id); 
             expect(activityById).not.toBeNull(); 
             expect(activityById).toHaveProperty('id', id); 
@@ -48,16 +51,18 @@ test.describe('Activities API Tests', () => {
 
     for (let id =1 ; id <= 30; id++){
         test(`Put Activity by Id = ${id}`, async () => { 
+            const activitiesClient = new ActivitiesClient();
+            await activitiesClient.initialize();
             const title = `Automation API Test ${id}`;
             const completed = id % 2 === 0; //true if id = even, odd if id == odd
 
-            const putActivityById = await activitiesClient.putActivityById(id, title, completed); 
+            const putActivityById = await activitiesClient.updateActivity(id, title, completed);
             
-            expect(activityById).not.toBeNull(); 
-            expect(activityById).toHaveProperty('id', id); 
-            expect(activityById).toHaveProperty('title', title); 
-            expect(activityById).toHaveProperty('dueDate'); 
-            expect(activityById).toHaveProperty('completed', completed); 
+            expect(putActivityById).not.toBeNull(); 
+            expect(putActivityById).toHaveProperty('id', id); 
+            expect(putActivityById).toHaveProperty('title', title); 
+            expect(putActivityById).toHaveProperty('dueDate'); 
+            expect(putActivityById).toHaveProperty('completed', completed); 
            
     });
     }

@@ -150,7 +150,6 @@ class SpecialMenu
             break;
 
     }
-    console.log(`Visibility of ${headerName}: ${isVisible}`);
     return isVisible;
   }
 
