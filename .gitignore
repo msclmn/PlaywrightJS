@@ -10,6 +10,7 @@ playwright-report/
 screenshots/
 videos/
 trace.zip
+html-report-*
 
 # Environment variables
 .env

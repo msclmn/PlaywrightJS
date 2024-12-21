@@ -3,7 +3,7 @@ const { SpecialMenu } = require('../../../../PlaywrightJS/Pages/LambdaTestPlaygr
 const { Cameras } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/CamerasPage');
 const { runTest } = require('../../SetupTest');
 
-test.only('Verify the primary headers are displayed on the Special page', runTest(async ({ page }) => {
+test('Verify the primary headers are displayed on the Special page', runTest(async ({ page }) => {
 
   const specialMenu = new SpecialMenu(page)
   const websiteLink = 'https://ecommerce-playground.lambdatest.io/';

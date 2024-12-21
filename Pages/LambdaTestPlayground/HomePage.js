@@ -5,8 +5,8 @@ const actions = wrapAsyncMethods(new Actions());
 class HomePage 
 {
     constructor(page) {
-        this.page = page;
         actions.page = page;
+        this.page = page;
 
         this.locators = {
             buttonShopNow: '(//a[text()="SHOP NOW"])[1]',
@@ -75,7 +75,7 @@ class HomePage
 
         await this.page.waitForTimeout(5000);
 
-        // Get the new active index
+        // Get the new active index from Helper method below
         let newIndex = await this.getActiveCarouselIndex();
         if (newIndex === currentIndex) return false;
 
@@ -83,16 +83,21 @@ class HomePage
         currentIndex = newIndex;
         await this.page.waitForTimeout(5000);
         newIndex = await this.getActiveCarouselIndex();
+        
         if (newIndex === currentIndex) return false;
 
         return true;
     }
 
-    // Helper method to get the current active carousel index
+    // Helper method to get the current active carousel index: 0, 1, or 2
     async getActiveCarouselIndex() {
-        const activeElement = await this.page.$(`${this.locators.carouselIndicators}.${this.activeClass}`);
-        return await activeElement.getAttribute('data-slide-to');
+    const activeElement = await this.page.$(`${this.locators.carouselIndicators}.${this.activeClass}`);
+    if (!activeElement) {
+        throw new Error('Active carousel element not found');
     }
+    const index = await activeElement.getAttribute('data-slide-to');
+    return parseInt(index, 10);
+}
 }
 
 module.exports = { HomePage };
