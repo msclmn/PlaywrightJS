@@ -32,3 +32,12 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+
+    # Test Reporter
+    - name: Test Reporter 
+      uses: dorny/test-reporter@v1 
+      if: always() 
+      with: 
+        name: Test Results 
+        path: ./test-results.xml 
+        reporter: jest-junit
