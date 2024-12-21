@@ -23,7 +23,7 @@ jobs:
 
       # Run API tests
       - name: Run API tests from the Tests/API folder
-        run: npx playwright test tests/api
+        run: npx playwright test Tests/API
 
       # Upload the test results
       - uses: actions/upload-artifact@v4
