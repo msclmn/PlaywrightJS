@@ -3,6 +3,7 @@ const { defineConfig } = require('@playwright/test');
 module.exports = defineConfig({
     testDir: './Tests',
     timeout: 30000,
+    retries: 5, //Will retry a test up to 5x, if it fails.
     use: {
         browserName: 'chromium',
         //browserName: 'firefox',
