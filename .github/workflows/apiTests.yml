@@ -1,11 +1,7 @@
 name: API Tests
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch: # Allows manual triggering of the workflow
-  # pull_request:
-  #   branches: [ main ]
 
 jobs:
   API-test:
