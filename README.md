@@ -4,12 +4,12 @@
 
 This repository features an automation portfolio that highlights UI and API tests for a web application, all implemented using Playwright with JavaScript.
 
-Tests are triggered automatically in GitHub Actions CI/CD whenever a PUSH to main occurs.
+Comprehensive Tests are triggered automatically in GitHub Actions CI/CD whenever a PUSH to main occurs.
 
 There are currently 3 pipelines/workflows: 
-1) UI Tests
-2) API Tests
-3) All encompassing
+1) Comprehensive Tests (Automatically triggered)
+2) UI Tests (Manually triggered)
+3) API Tests (Manually triggered)
 
 ### Install Dependencies based on the `package.json` file: 
 
