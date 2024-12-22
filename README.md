@@ -6,9 +6,10 @@ This repository features an automation portfolio that highlights UI and API test
 
 Tests are triggered automatically in GitHub Actions CI/CD whenever a PUSH to main occurs.
 
-There are currently 2 pipelines: 
+There are currently 3 pipelines/workflows: 
 1) UI Tests
 2) API Tests
+3) All encompassing
 
 ### Install Dependencies based on the `package.json` file: 
 
