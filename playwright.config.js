@@ -15,6 +15,6 @@ module.exports = defineConfig({
     },
     reporter: [
         ['list'],
-        ['html', { outputFolder: `html-report-${Date.now()}` }],
+        ['html', { outputFolder: `html-report` }],
     ],
 });
