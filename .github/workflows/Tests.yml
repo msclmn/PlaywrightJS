@@ -1,6 +1,6 @@
 ## It will test both UI and API tests
 
-name: Tests
+name: Comprehensive Tests
 
 on:
   push:
