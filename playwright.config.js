@@ -15,6 +15,7 @@ module.exports = defineConfig({
     },
     reporter: [
         ['list'],
-        ['html', { outputFolder: `html-report` }],
+        ['html', { outputFolder: `html-report` }], //HTML Reporter
+        ['github'], // Reporter for GitHub Actions annotations
     ],
 });
