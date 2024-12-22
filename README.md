@@ -50,7 +50,7 @@ npx playwright test --ui
 To trigger a manual pipeline run:
 ```
 - Click Actions tab from the project
-- Select Worflow (UI or API Tests)
+- Select Worflow
 - Click Run workflow
 - Select Branch to run in
 - Select Run workflow
