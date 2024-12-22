@@ -28,12 +28,17 @@ jobs:
         if: always() # Ensure the report is uploaded even if the tests fail
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: playwright-html-report
+          path: html-report
           retention-days: 30
       
-      - name: Notify about the HTML report
+      - name: Add test result summary
         if: always()
         run: |
           echo "### Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "Download the Playwright HTML report from the **Artifacts** section in this workflow run." >> $GITHUB_STEP_SUMMARY
+          echo "- The detailed Playwright HTML report is available as an artifact." >> $GITHUB_STEP_SUMMARY
+
+      - name: Extract test summary
+        run: |
+          npx playwright show-report playwright-report --output=json > test-summary.json
+          node extract-summary.js test-summary.json
