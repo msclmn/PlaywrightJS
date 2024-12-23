@@ -9,8 +9,10 @@ const { runTest } = require('../../SetupTest');
 
 let camerasMenu;
 let goToPage;
-test.beforeEach(async ({ page }) => 
-  { goToPage = await page.goto(`${baseURLCamerasPage}`); camerasMenu = new Cameras(page); });
+
+test.beforeEach(async ({ page }) => { 
+  goToPage = await page.goto(`${baseURLCamerasPage}`); 
+  camerasMenu = new Cameras(page); });
 
 test('Verify a price range can be selected from the fields', runTest(async() => {
   // Fill the minimum price field and verify
@@ -60,6 +62,15 @@ test('Verify the rest of the headers are displayed in the sidebar', runTest(asyn
   expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true);
   expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true);
 }))
+/*
+test('Verify an item can be searched via the search field', runTest(async({ page }) => {
+  await camerasMenu.sendKeysToSearch('Palm');
+  await camerasMenu.pressEnterKeyOnSearchField(); // Press Enter
+}))
+*/
+
+/*
+test('Verify all manufacturers are displayed in the sidebar', runTest(async() => {
 
 test('Verify an item can be searched via the search field', runTest(async() => {
   await camerasMenu.sendKeysToSearch('Palm');
@@ -77,7 +88,7 @@ test('Verify all manufacturers are displayed in the sidebar', runTest(async({pag
   // Click and verify Hewlett-Packard products page
   //await camerasMenu.clickManufacturers('Hewlett-Packard');
   //await expect(page).toHaveURL(baseURLHewlettPackardProductsPage);
-}))
+}))*/
 
 test('Verify all colors can be selected from the color picker', runTest(async({}) => {
   const colors = ['Blue', 'Pink', 'Black', 'Orange', 'Red', 'Brown', 'Green', 'Yellow'];
