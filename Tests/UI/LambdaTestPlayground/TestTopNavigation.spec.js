@@ -36,7 +36,7 @@ test('Navigate through the site using the top navigation bar.', runTest(async ({
     else //logout user
     {
         await navigationMenu.hoverMyAccountNav();
-        navigationMenu.clickLogoutOptionInMyAccount;
+        await navigationMenu.clickLogoutOptionInMyAccount;
         loginOption = navigationMenu.isLoginDisplayed();
         expect(loginOption).toBe(true, 'Login option in My account should be displayed after user logs out.')
     }

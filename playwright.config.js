@@ -1,6 +1,12 @@
 const { defineConfig } = require('@playwright/test');
 
 module.exports = defineConfig({
+    baseURL: 'https://ecommerce-playground.lambdatest.io/',
+    baseURLSpecialPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/special',
+    baseURLCamerasPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33',
+    baseURLAppleProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=8',
+    baseURLCanonProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=9',
+    baseURLHewlettPackardProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=7',
     testDir: './Tests',
     timeout: 30000,
     retries: 5, //Will retry a test up to 5x, if it fails.
