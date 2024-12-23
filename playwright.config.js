@@ -9,6 +9,7 @@ module.exports = defineConfig({
     baseURLHewlettPackardProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=7',
     testDir: './Tests',
     timeout: 30000,
+    retries: 5, //Will retry a test up to 5x, if it fails.
     use: {
         browserName: 'chromium',
         //browserName: 'firefox',
@@ -20,6 +21,7 @@ module.exports = defineConfig({
     },
     reporter: [
         ['list'],
-        ['html', { outputFolder: `test-results/html-report-${Date.now()}` }],
+        ['html', { outputFolder: `html-report` }], //HTML Reporter
+        ['github'], // Reporter for GitHub Actions annotations
     ],
 });

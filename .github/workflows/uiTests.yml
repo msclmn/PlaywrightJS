@@ -1,0 +1,31 @@
+name: UI Tests
+
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  UI-test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      
+      - name: Run UI tests from Tests/UI folder with xvfb-run 
+        run: xvfb-run --auto-servernum -- npx playwright test Tests/UI
+      
+      - name: Upload Playwright HTML Report
+        if: always() # Ensure the report is uploaded even if the tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-html-report
+          path: html-report
+          retention-days: 30

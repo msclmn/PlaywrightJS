@@ -1,0 +1,64 @@
+## It will test both UI and API tests
+
+name: Comprehensive Tests
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  # API Tests Job
+  API-test:
+    name: API Tests
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API tests from the Tests/API folder
+        run: npx playwright test Tests/API
+
+      - name: Upload API Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-html-report
+          path: html-report
+          retention-days: 30
+
+  # UI Tests Job
+  UI-test:
+    name: UI Tests
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      
+      - name: Run UI tests from Tests/UI folder with xvfb-run 
+        run: xvfb-run --auto-servernum -- npx playwright test Tests/UI
+      
+      - name: Upload UI Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-test-html-report
+          path: html-report
+          retention-days: 30

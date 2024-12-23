@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { NavigationMenu } = require('../../../Pages/LambdaTestPlayground/NavigationMenu');
-const { runTest } = require('../../SetupTest');
 const { LoginPage } = require('../../../Pages/LambdaTestPlayground/LoginPage');
+const { runTest } = require('../../SetupTest');
 const dataSet = JSON.parse(JSON.stringify(require('../../../Utilities/TestTopNavigation.json')));
 
 test('Navigate through the site using the top navigation bar.', runTest(async ({ page }) => {
