@@ -6,7 +6,8 @@ const { runTest } = require('../../SetupTest');
 let specialMenu;
 let goToPage;
 test.beforeEach(async ({ page }) => 
-  { goToPage = await page.goto(`${baseURLSpecialPage}`); specialMenu = new SpecialMenu(page); });
+  { goToPage = await page.goto(`${baseURLSpecialPage}`); 
+    specialMenu = new SpecialMenu(page); });
 
 test('Verify the primary headers are displayed on the Special page', runTest(async () => {
 

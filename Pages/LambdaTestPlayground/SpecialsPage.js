@@ -10,10 +10,6 @@ class SpecialMenu
 
         // Locators as variables 
         this.locators = {
-<<<<<<< HEAD
-=======
-            navSpecial: '(//*[contains(@class, "title") and normalize-space(text())="Special"])[2]',
->>>>>>> main
             specialOffersHeader: '//h1[text()="Special Offers"]',
             headerFilter: '//h3[contains(text(),"Filter")]',
             headerPrice: '//div[contains(@class, "mz-filter-group") and contains(@class, "price")]',
@@ -40,15 +36,6 @@ class SpecialMenu
         };
     }
 
-<<<<<<< HEAD
-=======
-    async clickSpecialTab()
-    {
-      const specialTab = await actions.click(this.locators.navSpecial);
-      return specialTab;
-    }
-
->>>>>>> main
     async isSpecialOffersHeaderVisible()
     {
       const specialOfferTxt = await actions.isVisible(this.locators.specialOffersHeader);
@@ -88,20 +75,12 @@ class SpecialMenu
     async isProductCompareLinkVisible() {
       const isVisible = await actions.isVisible(this.locators.productCompareLink);
       return isVisible;
-<<<<<<< HEAD
     }
-=======
-  }
->>>>>>> main
 
     async isCopyrightTextVisible() {
       const isVisible = await actions.isVisible(this.locators.copyrightText);
       return isVisible;
-<<<<<<< HEAD
     }
-=======
-}
->>>>>>> main
 
     async allsidebarHeadersDisplayed(headerName) {
       
