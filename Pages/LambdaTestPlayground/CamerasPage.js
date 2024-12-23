@@ -26,8 +26,6 @@ class Cameras
             manufacturerBtnHewlettPackard: '//label[@for="mz-fm-0-7"]',
             manufacturerBtnHTC: '//label[@for="mz-fm-0-5"]',
             manufacturerBtnNikon: '//label[@for="mz-fm-0-11"]',
-            //colorPickerBlue: '//label[@title="Blue"]',
-            //colorPickerPink: '//label[@title="Pink"]',
             colorPicker: (color) => `(//img[@alt="${color}"])[2]`,
             availabilitySelection: (availability) => `(//label[contains(text(), "${availability}")])[2]`,
         };
@@ -36,13 +34,12 @@ class Cameras
     async sendKeysToSearch(text)
     {
       const sendKeysSearch = await actions.sendKeys(this.locators.searchField, text);
-      //await this.locators.searchField.press('Enter');
       return sendKeysSearch;
+      
     }
-
+    
     async pressEnterKeyOnSearchField() {
-      // Press Enter directly on the search field
-      await this.locators.searchField.pressKey('Enter');
+      await this.locators.searchField.press('Enter');
     }
 
     // Generalized function to fill either price field
