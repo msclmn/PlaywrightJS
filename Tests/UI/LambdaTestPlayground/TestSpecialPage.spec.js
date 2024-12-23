@@ -1,15 +1,15 @@
 const { test, expect } = require('@playwright/test');
+const { baseURLSpecialPage } = require('../../../playwright.config');
 const { SpecialMenu } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/SpecialsPage');
-const { Cameras } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/CamerasPage');
 const { runTest } = require('../../SetupTest');
 
-test.only('Verify the primary headers are displayed on the Special page', runTest(async ({ page }) => {
+let specialMenu;
+let goToPage;
+test.beforeEach(async ({ page }) => 
+  { goToPage = await page.goto(`${baseURLSpecialPage}`); specialMenu = new SpecialMenu(page); });
 
-  const specialMenu = new SpecialMenu(page)
-  const websiteLink = 'https://ecommerce-playground.lambdatest.io/';
-  await page.goto(`${websiteLink}`);
-  await specialMenu.clickSpecialTab();
-  
+test('Verify the primary headers are displayed on the Special page', runTest(async () => {
+
   // Headers on sidebar left side
   expect(await specialMenu.isSpecialOffersHeaderVisible()).toBe(true);
   expect(await specialMenu.allsidebarHeadersDisplayed('Filter')).toBe(true);
@@ -38,32 +38,3 @@ test.only('Verify the primary headers are displayed on the Special page', runTes
   const copyrightText = await specialMenu.isCopyrightTextVisible();
   expect(copyrightText).toBe(true);
 }));
-
-  // Cameras Menu
-test('Verify a price range can be selected from the fields', runTest(async({ page }) => {
-  const camerasMenu = new Cameras(page)
-  const websiteLink = 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33';
-  await page.goto(`${websiteLink}`);
-
-  // Fill the minimum price field and verify
-  await camerasMenu.sendKeysPriceField('min', 100);
-  const minPriceValue = await camerasMenu.getPriceFieldValue('min');
-  expect(minPriceValue).toBe('100');
-  
-  // Fill the maximum price field and verify
-  await camerasMenu.sendKeysPriceField('max', 500);
-  const maxPriceValue = await camerasMenu.getPriceFieldValue('max');
-  expect(maxPriceValue).toBe('500');
-}))
-
-test('Verify the product filter dropdown displays the proper options', runTest(async({ page }) => {
-  const camerasMenu = new Cameras(page)
-  const websiteLink = 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33';
-  await page.goto(`${websiteLink}`);
-
-  expect(await camerasMenu.productFilterDropdown('15')).toBe(true);
-  expect(await camerasMenu.productFilterDropdown('25')).toBe(true);
-  expect(await camerasMenu.productFilterDropdown('50')).toBe(true);
-  expect(await camerasMenu.productFilterDropdown('75')).toBe(true);
-  expect(await camerasMenu.productFilterDropdown('100')).toBe(true);
-}))

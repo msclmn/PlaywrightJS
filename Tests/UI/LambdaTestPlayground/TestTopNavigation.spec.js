@@ -36,16 +36,16 @@ test('Navigate through the site using the top navigation bar.', runTest(async ({
     else //logout user
     {
         await navigationMenu.hoverMyAccountNav();
-        navigationMenu.clickLogoutOptionInMyAccount;
+        await navigationMenu.clickLogoutOptionInMyAccount;
         loginOption = navigationMenu.isLoginDisplayed();
         expect(loginOption).toBe(true, 'Login option in My account should be displayed after user logs out.')
     }
 
     //User Login
     await navigationMenu.hoverMyAccountNav();
-    navigationMenu.clickLoginOptionInMyAccount();
-
+    await navigationMenu.clickLoginOptionInMyAccount();
     await loginPage.sendKeysToLogin(dataSet.textFieldEmailAddress, dataSet.textFieldPassword);
+    await loginPage.clickLoginButton();
     await navigationMenu.hoverMyAccountNav();
     const isDashboardDisplayed = await navigationMenu.isDashboardDisplayed();
     expect(isDashboardDisplayed).toBe(true, 'Dashboard option should be displayed after user is logged in.'); //using this for now until we get My Account page POMS up

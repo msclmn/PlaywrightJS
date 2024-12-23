@@ -266,7 +266,7 @@ class Actions {
     async pressKey(selector, key) {
         try 
         {
-            await this.page.press(selector, key);
+            await this.page.keyboard.press(selector, key);
             return true;
         } 
         catch (error) 
