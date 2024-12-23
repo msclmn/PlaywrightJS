@@ -71,6 +71,13 @@ test('Verify an item can be searched via the search field', runTest(async({ page
 
 /*
 test('Verify all manufacturers are displayed in the sidebar', runTest(async() => {
+
+test('Verify an item can be searched via the search field', runTest(async() => {
+  await camerasMenu.sendKeysToSearch('Palm');
+  await camerasMenu.pressEnterKeyOnSearchField(); // Press Enter
+}))
+
+test('Verify all manufacturers are displayed in the sidebar', runTest(async({page}) => {
   await camerasMenu.clickManufacturers(page, 'Apple');
   await expect(page).toHaveURL(baseURLAppleProductsPage);
 
