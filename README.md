@@ -11,6 +11,10 @@ There are currently 3 pipelines/workflows:
 2) UI Tests (Manually triggered)
 3) API Tests (Manually triggered)
 
+## Testing Resources(URLs) Used
+- UI Tests: Lambdatest Playground: https://ecommerce-playground.lambdatest.io/
+- API Tests: FakeRestAPI: https://fakerestapi.azurewebsites.net/api/v1
+
 ### Install Dependencies based on the `package.json` file: 
 
 ```
