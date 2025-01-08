@@ -63,9 +63,9 @@ test('Verify the rest of the headers are displayed in the sidebar', runTest(asyn
   expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true);
 }))
 
-test.only('Verify an item can be searched via the search field', runTest(async() => {
+test('Verify an item can be searched via the search field', runTest(async() => {
   await camerasMenu.sendKeysToSearch('Palm');
-  await camerasMenu.pressEnterKeyOnSearchField(); // Press Enter 
+  await camerasMenu.pressEnterKeyOnSearchField(); // Press Enter
   expect(await camerasMenu.isCurrentURLPalmSearch()).toBe(true);
 }))
 

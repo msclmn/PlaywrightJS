@@ -55,6 +55,17 @@ class Cameras
 
     async sendKeysToSearch(text) {
       const sendKeysSearch = await actions.sendKeys(this.locators.searchField, text);
+      return sendKeysSearch; 
+    }
+    
+    async pressEnterKeyOnSearchField() {
+      const searchField = this.page.locator(this.locators.searchField);
+      await searchField.focus();
+      await searchField.press('Enter');
+    }
+
+    async sendKeysToSearch(text) {
+      const sendKeysSearch = await actions.sendKeys(this.locators.searchField, text);
       return sendKeysSearch;
     }
     
