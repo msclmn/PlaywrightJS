@@ -1,17 +1,17 @@
 const { test, expect } = require('@playwright/test');
 const { baseURLCamerasPage } = require('../../../playwright.config');
+const { baseURLPalmSearch } = require('../../../playwright.config');
 const { baseURLAppleProductsPage } = require('../../../playwright.config');
 const { baseURLCanonProductsPage } = require('../../../playwright.config');
 const { baseURLHewlettPackardProductsPage } = require('../../../playwright.config');
 const { Cameras } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/CamerasPage');
 const { runTest } = require('../../SetupTest');
 
-
 let camerasMenu;
 let goToPage;
 
 test.beforeEach(async ({ page }) => { 
-  goToPage = await page.goto(`${baseURLCamerasPage}`); 
+  goToPage = await page.goto(baseURLCamerasPage); 
   camerasMenu = new Cameras(page); });
 
 test('Verify a price range can be selected from the fields', runTest(async() => {
@@ -62,33 +62,21 @@ test('Verify the rest of the headers are displayed in the sidebar', runTest(asyn
   expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true);
   expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true);
 }))
-/*
-test('Verify an item can be searched via the search field', runTest(async({ page }) => {
-  await camerasMenu.sendKeysToSearch('Palm');
-  await camerasMenu.pressEnterKeyOnSearchField(); // Press Enter
-}))
-*/
-
-/*
-test('Verify all manufacturers are displayed in the sidebar', runTest(async() => {
 
 test('Verify an item can be searched via the search field', runTest(async() => {
   await camerasMenu.sendKeysToSearch('Palm');
   await camerasMenu.pressEnterKeyOnSearchField(); // Press Enter
+  expect(await camerasMenu.isCurrentURLPalmSearch()).toBe(true);
 }))
 
-test('Verify all manufacturers are displayed in the sidebar', runTest(async({page}) => {
-  await camerasMenu.clickManufacturers(page, 'Apple');
-  await expect(page).toHaveURL(baseURLAppleProductsPage);
-
-  // Click and verify Canon products page
-  //await camerasMenu.clickManufacturers('Canon');
-  //await expect(page).toHaveURL(baseURLCanonProductsPage);
-
-  // Click and verify Hewlett-Packard products page
-  //await camerasMenu.clickManufacturers('Hewlett-Packard');
-  //await expect(page).toHaveURL(baseURLHewlettPackardProductsPage);
-}))*/
+test('Verify all manufacturers are displayed in the sidebar', runTest(async() => {
+  await camerasMenu.manufacturersDisplayed('Apple');
+  await camerasMenu.manufacturersDisplayed('Canon');
+  await camerasMenu.manufacturersDisplayed('Hewlett-Packard');
+  await camerasMenu.manufacturersDisplayed('HTC');
+  await camerasMenu.manufacturersDisplayed('Palm');
+  await camerasMenu.manufacturersDisplayed('Sony');
+}))
 
 test('Verify all colors can be selected from the color picker', runTest(async({}) => {
   const colors = ['Blue', 'Pink', 'Black', 'Orange', 'Red', 'Brown', 'Green', 'Yellow'];
@@ -106,4 +94,16 @@ test('Verify all types of availability can be checked', runTest(async({}) => {
     await camerasMenu.selectAvailability(availability);
   }
   
+}))
+
+test('Verify the different sizes are displayed in the sidebar', runTest(async() => {
+  expect(await camerasMenu.sizeAvailable('Large')).toBe(true);
+  expect(await camerasMenu.sizeAvailable('Medium')).toBe(true);
+  expect(await camerasMenu.sizeAvailable('Small')).toBe(true);
+  expect(await camerasMenu.sizeAvailable('XLarge')).toBe(true);
+  expect(await camerasMenu.sizeAvailable('XXLarge')).toBe(true);
+}))
+
+test('Verify the product action carousel is present on the page', runTest(async() => {
+  expect(await camerasMenu.productActionCarouselVisible()).toBe(true);
 }))

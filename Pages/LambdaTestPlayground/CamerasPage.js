@@ -1,6 +1,7 @@
 const { expect } = require('@playwright/test');
 const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
 const actions = wrapAsyncMethods(new Actions());
+const { baseURLPalmSearch } = require('../../playwright.config');
 
 class Cameras
 {
@@ -26,29 +27,46 @@ class Cameras
             manufacturerBtnHewlettPackard: '//label[@for="mz-fm-0-7"]',
             manufacturerBtnHTC: '//label[@for="mz-fm-0-5"]',
             manufacturerBtnNikon: '//label[@for="mz-fm-0-11"]',
-            //colorPickerBlue: '//label[@title="Blue"]',
-            //colorPickerPink: '//label[@title="Pink"]',
+            manufacturerBtnPalm: '//label[@for="mz-fm-0-6"]',
+            manufacturerBtnSony: '//label[@for="mz-fm-0-10"]',
+            sizeLarge: '//label[@for="mz-fc-0-38"]',
+            sizeMedium: '//label[@for="mz-fc-0-39"]',
+            sizeSmall: '//label[@for="mz-fc-0-40"]',
+            sizeXLarge: '//label[@for="mz-fc-0-36"]',
+            sizeXXLarge: '//label[@for="mz-fc-0-37"]',
+            //colorPickerBlue: '//label[@for='mz-fc-0-32']//img[@alt='Blue']',
+            //colorPickerPink: '//label[@for='mz-fc-0-28']//img[@alt='Pink']',
             colorPicker: (color) => `(//img[@alt="${color}"])[2]`,
             availabilitySelection: (availability) => `(//label[contains(text(), "${availability}")])[2]`,
+
+            // product action carousel buttons
+            productActionCarousel: '//div[contains(@class, "product-action")]',
+            addToCartButton: '(//div[contains(@class, "product-action")])[1]//button[1]',
+            addToWishListButton: '(//div[contains(@class, "product-action")])[1]//button[2]',
+            quickViewButton: '(//div[contains(@class, "product-action")])[1]//button[3]',
+            compareButton: '(//div[contains(@class, "product-action")])[1]//button[4]',
         };
     }
 
-    async sendKeysToSearch(text)
-    {
+    async productActionCarouselVisible() { 
+      const productCarousel = await actions.isVisible(this.locators.productActionCarousel);
+      return productCarousel;
+    }
+
+    async sendKeysToSearch(text) {
       const sendKeysSearch = await actions.sendKeys(this.locators.searchField, text);
-      return sendKeysSearch;
-      
+      return sendKeysSearch; 
     }
     
     async pressEnterKeyOnSearchField() {
-      await this.locators.searchField.press('Enter');
-      //await this.locators.searchField.press('Enter');
-      return sendKeysSearch;
+      const searchField = this.page.locator(this.locators.searchField);
+      await searchField.focus();
+      await searchField.press('Enter');
     }
 
-    async pressEnterKeyOnSearchField() {
-      // Press Enter directly on the search field
-      await this.locators.searchField.pressKey('Enter');
+    async isCurrentURLPalmSearch() {
+      const currentURL = await this.page.url();
+      return currentURL === baseURLPalmSearch;
     }
 
     // Generalized function to fill either price field
@@ -56,14 +74,14 @@ class Cameras
       const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
       const sendText = await actions.sendKeys(selector, value.toString());
       return sendText;
-  }
+    }
 
     // Method to get field value
     async getPriceFieldValue(field) {
       const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
       const getValue = actions.getValue(selector);
       return getValue;
-  }
+    }
 
     async productFilterDropdown(dropdown) {
       
@@ -197,17 +215,77 @@ class Cameras
   async clickManufacturers(btn) {
     switch (btn) {
         case 'Apple':
+          await this.page.waitForSelector();
           await actions.click(this.locators.manufacturerBtnApple);
           break;
-
         case 'Canon':
           await actions.click(this.locators.manufacturerBtnCanon);
           break;
-
         case 'Hewlett-Packard':
           await actions.click(this.locators.manufacturerBtnHewlettPackard);
           break;
+        case 'HTC':
+          await actions.click(this.locators.manufacturerBtnHTC);
+          break;
+        case 'Nikon':
+          await actions.click(this.locators.manufacturerBtnNikon);
+          break;
+        case 'Palm':
+          await actions.click(this.locators.manufacturerBtnPalm);
+          break;
+        case 'Sony':
+          await actions.click(this.locators.manufacturerBtnSony);
+          break;
     }
+  }
+
+  async manufacturersDisplayed(btn) {
+    switch (btn) {
+        case 'Apple':
+          await actions.isVisible(this.locators.manufacturerBtnApple);
+          break;
+        case 'Canon':
+          await actions.isVisible(this.locators.manufacturerBtnCanon);
+          break;
+        case 'Hewlett-Packard':
+          await actions.isVisible(this.locators.manufacturerBtnHewlettPackard);
+          break;
+        case 'HTC':
+          await actions.isVisible(this.locators.manufacturerBtnHTC);
+          break;
+        case 'Nikon':
+          await actions.isVisible(this.locators.manufacturerBtnNikon);
+          break;
+        case 'Palm':
+          await actions.isVisible(this.locators.manufacturerBtnPalm);
+          break;
+        case 'Sony':
+          await actions.isVisible(this.locators.manufacturerBtnSony);
+          break;
+    }
+  }
+
+  async sizeAvailable(size) {
+  
+    let isVisible
+    switch (size) {
+        case 'Large':
+          isVisible = await actions.isVisible(this.locators.sizeLarge);
+          break;
+        case 'Medium':
+          isVisible = await actions.isVisible(this.locators.sizeMedium);
+          break;
+        case 'Small':
+          isVisible = await actions.isVisible(this.locators.sizeSmall);
+          break;
+        case 'XLarge':
+          isVisible = await actions.isVisible(this.locators.sizeXLarge);
+          break;
+        case 'XXLarge':
+          isVisible = await actions.isVisible(this.locators.sizeXXLarge);
+          break;
+    }
+    return isVisible;
   }
 
   async selectColor(color) {
