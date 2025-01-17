@@ -4,7 +4,7 @@ const { LoginPage } = require('../../../Pages/LambdaTestPlayground/LoginPage');
 const { runTest } = require('../../SetupTest');
 const dataSet = JSON.parse(JSON.stringify(require('../../../Utilities/TestTopNavigation.json')));
 
-test('Navigate through the site using the top navigation bar.', runTest(async ({ page }) => {
+test('Navigate through the site using the top navigation bar.', runTest(async (page ) => {
     const navigationMenu = new NavigationMenu(page);
     const loginPage = new LoginPage(page);
     const websiteLink = 'https://ecommerce-playground.lambdatest.io/';

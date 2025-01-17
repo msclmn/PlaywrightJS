@@ -23,7 +23,7 @@ module.exports = defineConfig({
           name: 'safari',
           use: {
               browserName: 'webkit',
-              headless: true,
+              headless: false,
               viewport: { width: 1280, height: 720 },
               screenshot: 'off', // I have manual screenshot in testLogic
               video: 'retain-on-failure', // Save videos for failed tests
@@ -34,7 +34,7 @@ module.exports = defineConfig({
           name: 'chrome',
           use: {
               browserName: 'chromium',
-              headless: true,
+              headless: false,
               viewport: { width: 1280, height: 720 },
               screenshot: 'off', // I have manual screenshot in testLogic
               video: 'retain-on-failure', // Save videos for failed tests
@@ -45,7 +45,7 @@ module.exports = defineConfig({
           name: 'firefox',
           use: {
               browserName: 'firefox',
-              headless: true,
+              headless: false,
               viewport: { width: 1280, height: 720 },
               screenshot: 'off', // I have manual screenshot in testLogic
               video: 'retain-on-failure', // Save videos for failed tests
