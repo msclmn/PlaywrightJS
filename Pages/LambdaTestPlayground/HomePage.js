@@ -73,7 +73,7 @@ class HomePage
     async isCarouselMovingCorrectly() {
         let currentIndex = await this.getActiveCarouselIndex();
 
-        await this.page.waitForTimeout(5000);
+        await this.page.waitForTimeout(6000);
 
         // Get the new active index from Helper method below
         let newIndex = await this.getActiveCarouselIndex();
@@ -81,7 +81,7 @@ class HomePage
 
         // Repeat for another cycle to ensure carousel is moving correctly
         currentIndex = newIndex;
-        await this.page.waitForTimeout(5000);
+        await this.page.waitForTimeout(6000);
         newIndex = await this.getActiveCarouselIndex();
         
         if (newIndex === currentIndex) return false;
