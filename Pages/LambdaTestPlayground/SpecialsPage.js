@@ -36,38 +36,32 @@ class SpecialMenu
         };
     }
 
-    async isSpecialOffersHeaderVisible()
-    {
+    async isSpecialOffersHeaderVisible() {
       const specialOfferTxt = await actions.isVisible(this.locators.specialOffersHeader);
       return specialOfferTxt;
     }
 
-    async allCollapsingArrowsVisible()
-    { 
+    async allCollapsingArrowsVisible() { 
       const collapsingArrows = await actions.isVisible(this.locators.allCollapsingArrows);
       return collapsingArrows;
     }
 
-    async isMinimumPriceFieldVisible()
-    {
+    async isMinimumPriceFieldVisible() {
       const minPriceField = await actions.isVisible(this.locators.minimumPriceField);
       return minPriceField;
     }
 
-    async isMaximumPriceFieldVisible()
-    {
+    async isMaximumPriceFieldVisible() {
       const maxPriceField = await actions.isVisible(this.locators.maximumPriceField);
       return maxPriceField
     }
 
-    async isGridViewIconVisible()
-    {
+    async isGridViewIconVisible() {
       const gridViewIcon = await actions.isVisible(this.locators.gridViewIconBtn);
       return gridViewIcon;
     }
 
-    async isListViewIconVisible()
-    {
+    async isListViewIconVisible() {
       const listViewIcon = await actions.isVisible(this.locators.listViewIconBtn);
       return listViewIcon;
     }
