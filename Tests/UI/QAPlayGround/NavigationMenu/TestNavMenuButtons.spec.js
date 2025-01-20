@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { NavigationMenu } = require('../../../../Pages/NavigationMenu');
 const { runTest } = require('../../../SetupTest');
 
-test('Navigate through the site using navigation bar.', runTest(async ({ page }) => {
+test('Navigate through the site using navigation bar.', runTest(async (page) => {
     const navigationMenu = new NavigationMenu(page);
 
     await navigationMenu.navigateToNavigationMenu();
