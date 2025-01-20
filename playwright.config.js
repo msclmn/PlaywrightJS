@@ -10,7 +10,8 @@ module.exports = defineConfig({
     baseURLHewlettPackardProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=7',
     testDir: './Tests',
     timeout: 30000,
-    retries: 5, //Will retry a test up to 5x, if it fails.
+    workers: 6, // Will run 6 tests in parallel
+    retries: 5, // Will retry a test up to 5x, if it fails.
 
     reporter: [
         ['list'],
@@ -34,6 +35,18 @@ module.exports = defineConfig({
           name: 'chrome',
           use: {
               browserName: 'chromium',
+              headless: true,
+              viewport: { width: 1280, height: 720 },
+              screenshot: 'off', // I have manual screenshot in testLogic
+              video: 'retain-on-failure', // Save videos for failed tests
+              trace: 'on-first-retry', // Capture trace for failed tests on first retry
+            }
+        },
+        {
+          name: 'edge',
+          use: {
+              browserName: 'chromium',
+              channel: 'msedge',
               headless: true,
               viewport: { width: 1280, height: 720 },
               screenshot: 'off', // I have manual screenshot in testLogic

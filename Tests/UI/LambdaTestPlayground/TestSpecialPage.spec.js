@@ -5,11 +5,14 @@ const { runTest } = require('../../SetupTest');
 
 let specialMenu;
 let goToPage;
-test.beforeEach(async ({ page }) => 
-  { goToPage = await page.goto(`${baseURLSpecialPage}`); 
-    specialMenu = new SpecialMenu(page); });
 
-test('Verify the primary headers are displayed on the Special page', runTest(async () => {
+test.describe.configure({mode:'parallel'});
+
+test.beforeEach(async ({ page }) => { 
+  goToPage = await page.goto(`${baseURLSpecialPage}`); 
+  specialMenu = new SpecialMenu(page); });
+
+test('@UI Verify the primary headers are displayed on the Special page', runTest(async () => {
 
   // Headers on sidebar left side
   expect(await specialMenu.isSpecialOffersHeaderVisible()).toBe(true);
