@@ -1,13 +1,8 @@
-//https://ecommerce-playground.lambdatest.io/
 const { expect } = require('@playwright/test');
-const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
-const actions = wrapAsyncMethods(new Actions());
 
-class NavigationMenu //Top navigation area of the website
-{
+class NavigationMenu {
     constructor(page) {
         this.page = page;
-        actions.page = page;
 
         this.locators = {
             navHome: '//span[contains(text(),"Home")]',
@@ -30,133 +25,89 @@ class NavigationMenu //Top navigation area of the website
             optionReturnInMyAccount: '//*[contains(@class, "title") and normalize-space(text())="Return"]',
             optionMyVoucherInMyAccount: '//*[contains(@class, "title") and normalize-space(text())="My voucher"]',
             optionLogoutInMyAccount: '//*[contains(@class, "title") and normalize-space(text())="Logout"]',
-
-        }
+        };
     }
 
-    async clickShopByCategory() 
-    { 
-        const click = await actions.click(this.locators.navShopByCategory); 
-        return click;
-    } 
-
-    async clickHome() 
-    { 
-        const click = await actions.click(this.locators.navHome); 
-        return click;
-    } 
-
-    async clickSpecial() 
-    { 
-        const click = await actions.click(this.locators.navSpecial); 
-        return click;
-    } 
-
-    async clickBlog() 
-    { 
-        const click = await actions.click(this.locators.navBlog); 
-        return click;
-    } 
-
-    async clickMegaMenu() 
-    { 
-        const click = await actions.click(this.locators.navMegaMenu); 
-        return click;
-    } 
-
-    async clickAddOns() 
-    { 
-        const click = await actions.click(this.locators.navAddOns); 
-        return click;
+    async clickShopByCategory() {
+        await this.page.click(this.locators.navShopByCategory);
     }
 
-    async clickMyAccount() 
-    { 
-        const click = await actions.click(this.locators.navMyAccount); 
-        return click;
-    } 
-
-    async clickSearchButton() 
-    { 
-        const click = await actions.click(this.locators.buttonSearch); 
-        return click;
-    } 
-
-    async clickCompareLink() 
-    { 
-        const click = await actions.click(this.locators.linkCompare); 
-        return click;
-    } 
-
-    async clickWishListLink() 
-    { 
-        const click = await actions.click(this.locators.linkWishList); 
-        return click;
-    } 
-
-    async clickShoppingCartLink() 
-    { 
-        const click = await actions.click(this.locators.linkShoppingCart); 
-        return click;
+    async clickHome() {
+        await this.page.click(this.locators.navHome);
     }
 
-    async clickLoginOptionInMyAccount() 
-    { 
-        const click = await actions.click(this.locators.optionLoginInMyAccount); 
-        return click;
+    async clickSpecial() {
+        await this.page.click(this.locators.navSpecial);
     }
 
-    async clickRegisterOptionInMyAccount() 
-    { 
-        const click = await actions.click(this.locators.optionRegisterInMyAccount); 
-        return click;
+    async clickBlog() {
+        await this.page.click(this.locators.navBlog);
     }
 
-    async clickLogoutOptionInMyAccount() 
-    { 
-        const click = await actions.click(this.locators.optionLogoutInMyAccount); 
-        return click;
+    async clickMegaMenu() {
+        await this.page.click(this.locators.navMegaMenu);
     }
 
-    async hoverMyAccountNav()
-    {
-        const hover = await actions.hover(this.locators.navMyAccount);
-        return hover;
+    async clickAddOns() {
+        await this.page.click(this.locators.navAddOns);
     }
 
-    async isLoginDisplayed()
-    {
-        const displayed = await actions.isVisible(this.locators.optionLoginInMyAccount)
-        return displayed;
+    async clickMyAccount() {
+        await this.page.click(this.locators.navMyAccount);
     }
 
-    async isRegisterDisplayed()
-    {
-        const displayed = await actions.isVisible(this.locators.optionRegisterInMyAccount)
-        return displayed;
+    async clickSearchButton() {
+        await this.page.click(this.locators.buttonSearch);
     }
 
-    async isDashboardDisplayed()
-    {
-        const displayed = await actions.isVisible(this.locators.optionDashboardInMyAccount)
-        return displayed;
-    } 
+    async clickCompareLink() {
+        await this.page.click(this.locators.linkCompare);
+    }
 
-    async isLogoutNotDisplayed()
-    {
-        try
-        {
-            const displayed = await actions.isNotVisible(this.locators.optionLogoutInMyAccount);
-            return displayed;
-        }
-        catch(error)
-        {
+    async clickWishListLink() {
+        await this.page.click(this.locators.linkWishList);
+    }
+
+    async clickShoppingCartLink() {
+        await this.page.click(this.locators.linkShoppingCart);
+    }
+
+    async clickLoginOptionInMyAccount() {
+        await this.page.click(this.locators.optionLoginInMyAccount);
+    }
+
+    async clickRegisterOptionInMyAccount() {
+        await this.page.click(this.locators.optionRegisterInMyAccount);
+    }
+
+    async clickLogoutOptionInMyAccount() {
+        await this.page.click(this.locators.optionLogoutInMyAccount);
+    }
+
+    async hoverMyAccountNav() {
+        await this.page.hover(this.locators.navMyAccount);
+    }
+
+    async isLoginDisplayed() {
+        return await this.page.isVisible(this.locators.optionLoginInMyAccount);
+    }
+
+    async isRegisterDisplayed() {
+        return await this.page.isVisible(this.locators.optionRegisterInMyAccount);
+    }
+
+    async isDashboardDisplayed() {
+        return await this.page.isVisible(this.locators.optionDashboardInMyAccount);
+    }
+
+    async isLogoutNotDisplayed() {
+        try {
+            await this.page.waitForSelector(this.locators.optionLogoutInMyAccount, { state: 'hidden' });
+            return true;
+        } catch (error) {
             return false;
         }
     }
-
-
-    '//*[contains(@class, "title") and normalize-space(text())="Dashboard"]'
 }
 
-module.exports = { NavigationMenu }
+module.exports = { NavigationMenu };
