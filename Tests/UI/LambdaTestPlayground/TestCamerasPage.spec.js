@@ -10,7 +10,8 @@ test.describe.configure({mode:'parallel'});
 
 test.beforeEach(async ({ page }) => { 
   goToPage = await page.goto(baseURLCamerasPage); 
-  camerasMenu = new Cameras(page); });
+  camerasMenu = new Cameras(page); 
+});
 
 test('@Functional Verify a price range can be selected from the fields', runTest(async() => {
   // Fill the minimum price field and verify
@@ -51,11 +52,17 @@ test('@UI Verify all the correct options are displayed in the sort by dropdown',
   }
 }))
 
-test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async() => {
-  expect(await camerasMenu.sidebarHeadersDisplayed('Manufacturer')).toBe(true);
-  expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true);
-  expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true);
-}))
+test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async (page) => {
+  let isVisible = await camerasMenu.sidebarHeadersDisplayed('Manufacturer');
+  expect(isVisible).toBe(true, 'Manufacturer header should be visible');
+
+  isVisible = await camerasMenu.sidebarHeadersDisplayed('Color');
+  expect(isVisible).toBe(true, 'Color header should be visible');
+
+  isVisible = await camerasMenu.sidebarHeadersDisplayed('Size');
+  expect(isVisible).toBe(true, 'Size header should be visible');
+}));
+
 
 test('@Functional Verify an item can be searched via the search field', runTest(async() => {
   await camerasMenu.sendKeysToSearch('Palm');

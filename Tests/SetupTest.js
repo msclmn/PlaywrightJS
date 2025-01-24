@@ -1,19 +1,17 @@
-const { Actions, wrapAsyncMethods } = require('../Utilities/BaseActions/Actions');
-const actions = wrapAsyncMethods(new Actions());
-
 //Wrapper for test execution to handle browser lifecycle
 function runTest(testLogic) {
     return async ({ page }, testInfo) => {
         try {
             console.log(`Starting test: ${testInfo.title}`);
             // Execute the test logic with the existing page instance
-            await testLogic(page, actions); 
+            await testLogic(page); 
         } catch (error) {
             console.error('Test failed: ', error);
             await captureScreenshotOnFailure(page, testInfo);
             throw error; // Re-throw error to mark test as failed
         } finally {
-            await actions.closeBrowser(); // Ensure the browser is closed after the test
+            // Close the browser context instead of using actions.closeBrowser
+            await page.context().close();
         }
     };
 }
