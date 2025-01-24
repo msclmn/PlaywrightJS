@@ -1,11 +1,7 @@
 const { expect } = require('@playwright/test');
-const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
-const actions = wrapAsyncMethods(new Actions());
 
-class HomePage 
-{
+class HomePage {
     constructor(page) {
-        actions.page = page;
         this.page = page;
 
         this.locators = {
@@ -24,38 +20,31 @@ class HomePage
     }
 
     async isCarouselSlideDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.carouselSlide);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.carouselSlide);
     }
 
     async isHeaderMainSearchForProductsDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.headerMainSearchForProducts);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.headerMainSearchForProducts);
     }
 
     async isHeaderMainNavigationDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.headerMainNavigation);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.headerMainNavigation);
     }
 
     async isHeaderTopTrendingCategoriesDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.headerTopTrendingCategories);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.headerTopTrendingCategories);
     }
 
     async isHeaderTopProductsDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.headerTopProducts);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.headerTopProducts);
     }
 
     async isHeaderTopCollectionsDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.headerTopCollection);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.headerTopCollection);
     }
 
     async isHeaderFromTheBlogDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.headerFromTheBlog);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.headerFromTheBlog);
     }
 
     // Shared Steps
@@ -91,13 +80,13 @@ class HomePage
 
     // Helper method to get the current active carousel index: 0, 1, or 2
     async getActiveCarouselIndex() {
-    const activeElement = await this.page.$(`${this.locators.carouselIndicators}.${this.activeClass}`);
-    if (!activeElement) {
-        throw new Error('Active carousel element not found');
+        const activeElement = await this.page.$(`${this.locators.carouselIndicators}.${this.activeClass}`);
+        if (!activeElement) {
+            throw new Error('Active carousel element not found');
+        }
+        const index = await activeElement.getAttribute('data-slide-to');
+        return parseInt(index, 10);
     }
-    const index = await activeElement.getAttribute('data-slide-to');
-    return parseInt(index, 10);
-}
 }
 
 module.exports = { HomePage };
