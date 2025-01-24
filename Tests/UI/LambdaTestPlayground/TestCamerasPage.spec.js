@@ -51,11 +51,11 @@ test('@UI Verify all the correct options are displayed in the sort by dropdown',
   }
 }))
 
-test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async() => {
-  expect(await camerasMenu.sidebarHeadersDisplayed('Manufacturer')).toBe(true);
-  expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true);
-  expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true);
-}))
+test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async (page) => {
+  expect(await camerasMenu.sidebarHeadersDisplayed('Manufacturer')).toBe(true, 'Manufacturer header should be visible');
+  expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true, 'Color header should be visible');
+  expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true, 'Size header should be visible');
+}));
 
 test('@Functional Verify an item can be searched via the search field', runTest(async() => {
   await camerasMenu.sendKeysToSearch('Palm');
@@ -105,4 +105,17 @@ test('@UI Verify the product action carousel is present on the page', runTest(as
 test('@Functional Verify an item can be added via the product action carousel ', runTest(async() => {
   await camerasMenu.hoverActionCarousel();
   await camerasMenu.clickActionAddToCart();
+  await camerasMenu.notificationBoxTop();
+}))
+
+test('@Functional Verify an item can be added to the wishlist via the product action carousel ', runTest(async() => {
+  await camerasMenu.hoverActionCarousel();
+  await camerasMenu.clickActionWishlist();
+  await camerasMenu.notificationBoxTop();
+}))
+
+test('@Functional Verify the quickview modal appears via the product action carousel ', runTest(async() => {
+  await camerasMenu.hoverActionCarousel();
+  await camerasMenu.clickQuickView();
+  //await camerasMenu.notificationBoxTop();
 }))

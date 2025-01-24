@@ -1,4 +1,5 @@
 const { defineConfig } = require('@playwright/test');
+const { devices } = require('@playwright/test');
 
 module.exports = defineConfig({
     baseURL: 'https://ecommerce-playground.lambdatest.io/',
@@ -11,7 +12,7 @@ module.exports = defineConfig({
     testDir: './Tests',
     timeout: 30000,
     workers: 6, // Will run 6 tests in parallel
-    retries: 5, // Will retry a test up to 5x, if it fails.
+    //retries: 5, // Will retry a test up to 5x, if it fails.
 
     reporter: [
         ['list'],
@@ -40,6 +41,8 @@ module.exports = defineConfig({
               screenshot: 'off', // I have manual screenshot in testLogic
               video: 'retain-on-failure', // Save videos for failed tests
               trace: 'on-first-retry', // Capture trace for failed tests on first retry
+              //...devices['Galaxy S9+'],
+              //...devices['iPhone 13']
             }
         },
         {

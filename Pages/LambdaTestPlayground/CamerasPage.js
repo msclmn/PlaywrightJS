@@ -34,8 +34,7 @@ class Cameras
             sizeSmall: '//label[@for="mz-fc-0-40"]',
             sizeXLarge: '//label[@for="mz-fc-0-36"]',
             sizeXXLarge: '//label[@for="mz-fc-0-37"]',
-            //colorPickerBlue: '//label[@for='mz-fc-0-32']//img[@alt='Blue']',
-            //colorPickerPink: '//label[@for='mz-fc-0-28']//img[@alt='Pink']',
+            notificationActionCarousel: '//div[@id="notification-box-top"]',
             colorPicker: (color) => `(//img[@alt="${color}"])[2]`,
             availabilitySelection: (availability) => `(//label[contains(text(), "${availability}")])[2]`,
 
@@ -55,7 +54,22 @@ class Cameras
     
     async clickActionAddToCart() {
       const addToCartButton = await actions.click(this.locators.addToCartButton);
-      return addToCartButton;  // Try to remove the return and place await instead
+      return addToCartButton;
+    }
+
+    async clickActionWishlist() {
+      const addToWishlist = await actions.click(this.locators.addToWishListButton);
+      return addToWishlist;
+    }
+
+    async clickQuickView() {
+      const quickView = await actions.click(this.locators.quickViewButton);
+      return quickView;
+    }
+
+    async notificationBoxTop() {
+      const notificationBox = await actions.isVisible(this.locators.notificationActionCarousel);
+      return notificationBox;
     }
 
     async productActionCarouselVisible() { 
