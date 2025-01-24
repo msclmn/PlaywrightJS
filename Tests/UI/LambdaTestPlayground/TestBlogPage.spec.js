@@ -18,8 +18,8 @@ test('Verify the primary headers are displayed on the Blog Page', runTest(async 
     // Primary Section headers 
     expect(await blogPage.isLatestArticleTitleDisplayed()).toBe(true);
     expect(await blogPage.isMostViewedTitleDisplayed()).toBe(true);
+
     // Side Category section titles displayed
-    
     expect(await blogPage.isBlogSideCategoryDisplayed('Business (16)')).toBe(true);
     expect(await blogPage.isBlogSideCategoryDisplayed('Electronics (16)')).toBe(true);
     expect(await blogPage.isBlogSideCategoryDisplayed('Technology (16)')).toBe(true);
@@ -27,5 +27,41 @@ test('Verify the primary headers are displayed on the Blog Page', runTest(async 
     
     // Latest Side header
     expect(await blogPage.isSideMenuTitleDisplayed()).toBe(true);
+
+    // Previous and Next buttons
+    expect(await blogPage.isLatestArticlesPrevButtonDisplayed()).toBe(true);
+    expect(await blogPage.isMostViewedPrevButtonDisplayed()).toBe(true);
+    expect(await blogPage.isSideColumnPrevButtonDisplayed()).toBe(true);
+    expect(await blogPage.isLatestArticlesNextButtonDisplayed()).toBe(true);
+    expect(await blogPage.isMostViewedNextButtonDisplayed()).toBe(true);
+    expect(await blogPage.isSideColumnNextButtonDisplayed()).toBe(true);
+
+}));
+
+test('Verify you can navigate through the Blog page with the navigation arrows', runTest (async () => {
+
+    //Test the Latest Articles blog section
+    expect(await blogPage.clickLatestArticlesNextButton()).toBe(true);
+    expect(await blogPage.clickLatestArticlesNextButton()).toBe(true);
+    expect(await blogPage.clickLatestArticlesNextButton()).toBe(true);
+    expect(await blogPage.clickLatestArticlesPrevButton()).toBe(true);
+    expect(await blogPage.clickLatestArticlesPrevButton()).toBe(true);
+    expect(await blogPage.clickLatestArticlesPrevButton()).toBe(true);
+
+    //Test the Most Viewed blog section
+    expect(await blogPage.clickMostViewedNextButton()).toBe(true);
+    expect(await blogPage.clickMostViewedNextButton()).toBe(true);
+    expect(await blogPage.clickMostViewedNextButton()).toBe(true);
+    expect(await blogPage.clickMostViewedPrevButton()).toBe(true);
+    expect(await blogPage.clickMostViewedPrevButton()).toBe(true);
+    expect(await blogPage.clickMostViewedPrevButton()).toBe(true);
+
+    //Test the Side Column Latest section
+    expect(await blogPage.clickSideColumnLatestNextButton()).toBe(true);
+    expect(await blogPage.clickSideColumnLatestNextButton()).toBe(true);
+    expect(await blogPage.clickSideColumnLatestNextButton()).toBe(true);
+    expect(await blogPage.clickSideColumnLatestPrevButton()).toBe(true);
+    expect(await blogPage.clickSideColumnLatestPrevButton()).toBe(true);
+    expect(await blogPage.clickSideColumnLatestPrevButton()).toBe(true);
 
 }));
