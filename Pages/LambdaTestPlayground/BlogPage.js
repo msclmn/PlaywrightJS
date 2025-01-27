@@ -73,7 +73,7 @@ class BlogPage
     async isBlogSideCategoryDisplayed(blogCategory)
     {   
         let locator = `//*[contains(@class, 'list-group-item') and contains(normalize-space(text()), '${blogCategory}')]`;
-        //const result = await this.page.getText(locator);
+
         let result = await this.page.textContent(locator);
 
         if(await this.page.isVisible(locator) === true)
