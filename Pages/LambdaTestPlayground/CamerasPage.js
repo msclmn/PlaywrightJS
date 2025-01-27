@@ -44,6 +44,7 @@ class Cameras
             addToWishListButton: '(//div[contains(@class, "product-action")])[1]//button[2]',
             quickViewButton: '(//div[contains(@class, "product-action")])[1]//button[3]',
             compareButton: '(//div[contains(@class, "product-action")])[1]//button[4]',
+            productQuickVieww: '//div[@id="product-quick-view"]'
         };
     }
 
@@ -65,6 +66,11 @@ class Cameras
     async clickQuickView() {
       const quickView = await actions.click(this.locators.quickViewButton);
       return quickView;
+    }
+
+    async productQuickView() {
+      const productView = await actions.isVisible(this.locators.productQuickVieww);
+      return productView;
     }
 
     async notificationBoxTop() {

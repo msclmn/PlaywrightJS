@@ -51,7 +51,7 @@ test('@UI Verify all the correct options are displayed in the sort by dropdown',
   }
 }))
 
-test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async (page) => {
+test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async () => {
   expect(await camerasMenu.sidebarHeadersDisplayed('Manufacturer')).toBe(true, 'Manufacturer header should be visible');
   expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true, 'Color header should be visible');
   expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true, 'Size header should be visible');
@@ -102,12 +102,14 @@ test('@UI Verify the product action carousel is present on the page', runTest(as
   expect(await camerasMenu.productActionCarouselVisible()).toBe(true);
 }))
 
+//Redo this test using the View Cart and Checkout button from the top
 test('@Functional Verify an item can be added via the product action carousel ', runTest(async() => {
   await camerasMenu.hoverActionCarousel();
   await camerasMenu.clickActionAddToCart();
   await camerasMenu.notificationBoxTop();
 }))
 
+//Redo this test using the Login and Register button from the top
 test('@Functional Verify an item can be added to the wishlist via the product action carousel ', runTest(async() => {
   await camerasMenu.hoverActionCarousel();
   await camerasMenu.clickActionWishlist();
@@ -115,7 +117,7 @@ test('@Functional Verify an item can be added to the wishlist via the product ac
 }))
 
 test('@Functional Verify the quickview modal appears via the product action carousel ', runTest(async() => {
-  await camerasMenu.hoverActionCarousel();
-  await camerasMenu.clickQuickView();
-  //await camerasMenu.notificationBoxTop();
+  expect(await camerasMenu.hoverActionCarousel()).toBe(true, 'Hovering over the carousel should be successful');
+  expect(await camerasMenu.clickQuickView()).toBe(true, 'Clicking the quick view button should be successful');
+  expect(await camerasMenu.productQuickView()).toBe(true, 'The quick view modal should be visible');
 }))
