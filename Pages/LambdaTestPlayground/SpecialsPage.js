@@ -1,12 +1,8 @@
 const { expect } = require('@playwright/test');
-const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
-const actions = wrapAsyncMethods(new Actions());
 
-class SpecialMenu 
-{
+class SpecialMenu {
     constructor(page) {
         this.page = page;
-        actions.page = page;
 
         // Locators as variables 
         this.locators = {
@@ -32,11 +28,11 @@ class SpecialMenu
             minimumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Minimum Price']",
             maximumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Maximum Price']",
             allCollapsingArrows: "//i[@class='fas fa-angle-up ml-auto']"
-            
         };
     }
 
     async isSpecialOffersHeaderVisible() {
+<<<<<<< HEAD
       const specialOfferTxt = await actions.isVisible(this.locators.specialOffersHeader);
       return specialOfferTxt;
     }
@@ -64,82 +60,89 @@ class SpecialMenu
     async isListViewIconVisible() {
       const listViewIcon = await actions.isVisible(this.locators.listViewIconBtn);
       return listViewIcon;
+=======
+        return await this.page.isVisible(this.locators.specialOffersHeader);
+    }
+
+    async allCollapsingArrowsVisible() {
+        return await this.page.isVisible(this.locators.allCollapsingArrows);
+    }
+
+    async isMinimumPriceFieldVisible() {
+        return await this.page.isVisible(this.locators.minimumPriceField);
+    }
+
+    async isMaximumPriceFieldVisible() {
+        return await this.page.isVisible(this.locators.maximumPriceField);
+    }
+
+    async isGridViewIconVisible() {
+        return await this.page.isVisible(this.locators.gridViewIconBtn);
+    }
+
+    async isListViewIconVisible() {
+        return await this.page.isVisible(this.locators.listViewIconBtn);
+>>>>>>> main
     }
 
     async isProductCompareLinkVisible() {
-      const isVisible = await actions.isVisible(this.locators.productCompareLink);
-      return isVisible;
+        return await this.page.isVisible(this.locators.productCompareLink);
     }
 
     async isCopyrightTextVisible() {
-      const isVisible = await actions.isVisible(this.locators.copyrightText);
-      return isVisible;
+        return await this.page.isVisible(this.locators.copyrightText);
     }
 
     async allsidebarHeadersDisplayed(headerName) {
-      
-      let isVisible
-      switch (headerName) {
-          case 'Filter':
-            isVisible = await actions.isVisible(this.locators.headerFilter);
-            break;
-
-          case 'Price':
-            isVisible = await actions.isVisible(this.locators.headerPrice);
-            break;
-
-          case 'Search':
-            isVisible = await actions.isVisible(this.locators.headerSearch);
-            break;
-
-          case 'Availability':
-            isVisible = await actions.isVisible(this.locators.headerAvailability);
-            break;
-
-          case 'Discount':
-            isVisible = await actions.isVisible(this.locators.headerDiscount);
-            break;
-
-          case 'Rating':
-            isVisible = await actions.isVisible(this.locators.headerRating);
-            break;
-
-          case 'Desktops':
-            isVisible = await actions.isVisible(this.locators.headerDesktops);
-            break;
-
-          case 'Laptops':
-            isVisible = await actions.isVisible(this.locators.headerLaptops);
-            break;
-
-          case 'Components':
-            isVisible = await actions.isVisible(this.locators.headerComponents);
-            break;
-
-          case 'Tablets':
-            isVisible = await actions.isVisible(this.locators.headerTablets);
-            break;
-
-          case 'Software':
-            isVisible = await actions.isVisible(this.locators.headerSoftware);
-            break;
-
-          case 'Phones & PDAs':
-            isVisible = await actions.isVisible(this.locators.headerPhoneAndPDA);
-            break;
-
-          case 'Cameras':
-            isVisible = await actions.isVisible(this.locators.headerCameras);
-            break;
-
-          case 'MP3 Players':
-            isVisible = await actions.isVisible(this.locators.headerMP3Players);
-            break;
-
+        let isVisible;
+        switch (headerName) {
+            case 'Filter':
+                isVisible = await this.page.isVisible(this.locators.headerFilter);
+                break;
+            case 'Price':
+                isVisible = await this.page.isVisible(this.locators.headerPrice);
+                break;
+            case 'Search':
+                isVisible = await this.page.isVisible(this.locators.headerSearch);
+                break;
+            case 'Availability':
+                isVisible = await this.page.isVisible(this.locators.headerAvailability);
+                break;
+            case 'Discount':
+                isVisible = await this.page.isVisible(this.locators.headerDiscount);
+                break;
+            case 'Rating':
+                isVisible = await this.page.isVisible(this.locators.headerRating);
+                break;
+            case 'Desktops':
+                isVisible = await this.page.isVisible(this.locators.headerDesktops);
+                break;
+            case 'Laptops':
+                isVisible = await this.page.isVisible(this.locators.headerLaptops);
+                break;
+            case 'Components':
+                isVisible = await this.page.isVisible(this.locators.headerComponents);
+                break;
+            case 'Tablets':
+                isVisible = await this.page.isVisible(this.locators.headerTablets);
+                break;
+            case 'Software':
+                isVisible = await this.page.isVisible(this.locators.headerSoftware);
+                break;
+            case 'Phones & PDAs':
+                isVisible = await this.page.isVisible(this.locators.headerPhoneAndPDA);
+                break;
+            case 'Cameras':
+                isVisible = await this.page.isVisible(this.locators.headerCameras);
+                break;
+            case 'MP3 Players':
+                isVisible = await this.page.isVisible(this.locators.headerMP3Players);
+                break;
+            default:
+                isVisible = false;
+        }
+        return isVisible;
     }
-    return isVisible;
-  }
-
 }
 
-module.exports = { SpecialMenu }
+module.exports = { SpecialMenu };

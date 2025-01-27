@@ -1,13 +1,14 @@
 const { expect } = require('@playwright/test');
+<<<<<<< HEAD
 const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
 const actions = wrapAsyncMethods(new Actions());
+=======
+>>>>>>> main
 const { baseURLPalmSearch, timeout } = require('../../playwright.config');
 
-class Cameras
-{
+class Cameras {
     constructor(page) {
         this.page = page;
-        actions.page = page;
 
         // Locators as variables
         this.locators = {
@@ -19,8 +20,8 @@ class Cameras
             leftHandle: "//*[@id='mz-filter-panel-0-0']/div/div[1]/span[1]",
             rightHandle : "//*[@id='mz-filter-panel-0-0']/div/div[1]/span[2]",
             headerManufacturer: '//div[contains(@class, "mz-filter-group") and contains(@class, "manufacturer")]',
-            headerColor: '//div[@class="mz-filter-group-header collapsed"][normalize-space()="Color"]',
-            headerSize: '//div[@class="mz-filter-group-header collapsed"][normalize-space()="Size"]',
+            headerColor: '//div[@class="mz-filter-group-header "][normalize-space()="Color"][1]',
+            headerSize: '//div[@class="mz-filter-group-header "][normalize-space()="Size"][1]',
             searchField: '//*[@id="mz-filter-panel-0-3"]/div/input',
             manufacturerBtnApple: '//label[@for="mz-fm-0-8"]',
             manufacturerBtnCanon: '//label[@for="mz-fm-0-9"]',
@@ -49,217 +50,196 @@ class Cameras
     }
 
     async hoverActionCarousel() {
-      const hoverElement = await actions.hover(this.locators.navActionCarousel);
-      return hoverElement;
+        await this.page.hover(this.locators.navActionCarousel);
     }
     
     async clickActionAddToCart() {
-      const addToCartButton = await actions.click(this.locators.addToCartButton);
-      return addToCartButton;
+        await this.page.click(this.locators.addToCartButton);
     }
 
-    async clickActionWishlist() {
-      const addToWishlist = await actions.click(this.locators.addToWishListButton);
-      return addToWishlist;
-    }
-
-    async clickQuickView() {
-      const quickView = await actions.click(this.locators.quickViewButton);
-      return quickView;
-    }
-
-    async productQuickView() {
-      const productView = await actions.isVisible(this.locators.productQuickVieww);
-      return productView;
-    }
-
-    async notificationBoxTop() {
-      const notificationBox = await actions.isVisible(this.locators.notificationActionCarousel);
-      return notificationBox;
-    }
-
-    async productActionCarouselVisible() { 
-      const productCarousel = await actions.isVisible(this.locators.navActionCarousel);
-      return productCarousel;
+    async productActionCarouselVisible() {
+        return await this.page.isVisible(this.locators.navActionCarousel);
     }
 
     async sendKeysToSearch(text) {
-      const sendKeysSearch = await actions.sendKeys(this.locators.searchField, text);
-      return sendKeysSearch; 
+        await this.page.fill(this.locators.searchField, text);
     }
     
     async pressEnterKeyOnSearchField() {
-      const searchField = this.page.locator(this.locators.searchField);
-      await searchField.focus();
-      await searchField.press('Enter');
+        const searchField = this.page.locator(this.locators.searchField);
+        await searchField.focus();
+        await searchField.press('Enter');
     }
 
     async isCurrentURLPalmSearch() {
-      const currentURL = await this.page.url();
-      return currentURL === baseURLPalmSearch;
+        const currentURL = await this.page.url();
+        return currentURL === baseURLPalmSearch;
     }
 
     // Generalized function to fill either price field
     async sendKeysPriceField(field, value) {
-      const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
-      const sendText = await actions.sendKeys(selector, value.toString());
-      return sendText;
+        const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
+        await this.page.fill(selector, value.toString());
     }
 
     // Method to get field value
     async getPriceFieldValue(field) {
-      const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
-      const getValue = actions.getValue(selector);
-      return getValue;
+        const selector = field === 'min' ? this.locators.minimumPriceField : this.locators.maximumPriceField;
+        return await this.page.inputValue(selector);
     }
 
     async productFilterDropdown() {
-      return await actions.isVisible(this.locators.productFilterDropdown);
+        return await this.page.isVisible(this.locators.productFilterDropdown);
     }
 
     async sortByFilterDropdown() {
-      return await actions.isVisible(this.locators.sortByFilterDropdown);
+        return await this.page.isVisible(this.locators.sortByFilterDropdown);
     }
 
     async adjustLeftHandle(xOffset) {
-      const leftHandle = await this.page.locator(this.locators.leftHandle);
-      await leftHandle.hover();
-      await this.page.mouse.down();
-      const box = await leftHandle.boundingBox();
-      if (box) {
-        await this.page.mouse.move(box.x + xOffset, box.y + box.height / 2);
-      }
-      await this.page.mouse.up();
+        const leftHandle = await this.page.locator(this.locators.leftHandle);
+        await leftHandle.hover();
+        await this.page.mouse.down();
+        const box = await leftHandle.boundingBox();
+        if (box) {
+            await this.page.mouse.move(box.x + xOffset, box.y + box.height / 2);
+        }
+        await this.page.mouse.up();
     }
 
     async adjustRightHandle(xOffset) {
-      const rightHandle = await this.page.locator(this.locators.rightHandle);
-      await rightHandle.hover();
-      await this.page.mouse.down();
-      const box = await rightHandle.boundingBox();
-      if (box) {
-        await this.page.mouse.move(box.x + xOffset, box.y + box.height / 2);
-      }
-      await this.page.mouse.up();
+        const rightHandle = await this.page.locator(this.locators.rightHandle);
+        await rightHandle.hover();
+        await this.page.mouse.down();
+        const box = await rightHandle.boundingBox();
+        if (box) {
+            await this.page.mouse.move(box.x + xOffset, box.y + box.height / 2);
+        }
+        await this.page.mouse.up();
     }
 
     async getLeftHandleValue() {
-      return await this.page.locator(this.locators.leftHandle).textContent();
+        return await this.page.locator(this.locators.leftHandle).textContent();
     }
 
     async getRightHandleValue() {
-      return await this.page.locator(this.locators.rightHandle).textContent();
+        return await this.page.locator(this.locators.rightHandle).textContent();
     }
 
     async sidebarHeadersDisplayed(headerTitle) {
-    
-      let isVisible
-      switch (headerTitle) {
-          case 'Manufacturer':
-            isVisible = await actions.isVisible(this.locators.headerManufacturer);
-            break;
-
-          case 'Color':
-            isVisible = await actions.isVisible(this.locators.headerColor);
-            break;
-
-          case 'Size':
-            isVisible = await actions.isVisible(this.locators.headerSize);
-            break;
-      }
-      return isVisible;
+        let isVisible;
+        switch (headerTitle) {
+            case 'Manufacturer':
+                isVisible = await this.page.isVisible(this.locators.headerManufacturer);
+                break;
+            case 'Color':
+                isVisible = await this.page.isVisible(this.locators.headerColor);
+                break;
+            case 'Size':
+                isVisible = await this.page.isVisible(this.locators.headerSize);
+                break;
+            default:
+                isVisible = false;
+        }
+        return isVisible;
     }
 
     async clickManufacturers(btn) {
-      switch (btn) {
-          case 'Apple':
-            await this.page.waitForSelector();
-            await actions.click(this.locators.manufacturerBtnApple);
-            break;
-          case 'Canon':
-            await actions.click(this.locators.manufacturerBtnCanon);
-            break;
-          case 'Hewlett-Packard':
-            await actions.click(this.locators.manufacturerBtnHewlettPackard);
-            break;
-          case 'HTC':
-            await actions.click(this.locators.manufacturerBtnHTC);
-            break;
-          case 'Nikon':
-            await actions.click(this.locators.manufacturerBtnNikon);
-            break;
-          case 'Palm':
-            await actions.click(this.locators.manufacturerBtnPalm);
-            break;
-          case 'Sony':
-            await actions.click(this.locators.manufacturerBtnSony);
-            break;
-      }
+        switch (btn) {
+            case 'Apple':
+                await this.page.click(this.locators.manufacturerBtnApple);
+                break;
+            case 'Canon':
+                await this.page.click(this.locators.manufacturerBtnCanon);
+                break;
+            case 'Hewlett-Packard':
+                await this.page.click(this.locators.manufacturerBtnHewlettPackard);
+                break;
+            case 'HTC':
+                await this.page.click(this.locators.manufacturerBtnHTC);
+                break;
+            case 'Nikon':
+                await this.page.click(this.locators.manufacturerBtnNikon);
+                break;
+            case 'Palm':
+                await this.page.click(this.locators.manufacturerBtnPalm);
+                break;
+            case 'Sony':
+                await this.page.click(this.locators.manufacturerBtnSony);
+                break;
+            default:
+                break;
+        }
     }
 
     async manufacturersDisplayed(btn) {
-      switch (btn) {
-          case 'Apple':
-            await actions.isVisible(this.locators.manufacturerBtnApple);
-            break;
-          case 'Canon':
-            await actions.isVisible(this.locators.manufacturerBtnCanon);
-            break;
-          case 'Hewlett-Packard':
-            await actions.isVisible(this.locators.manufacturerBtnHewlettPackard);
-            break;
-          case 'HTC':
-            await actions.isVisible(this.locators.manufacturerBtnHTC);
-            break;
-          case 'Nikon':
-            await actions.isVisible(this.locators.manufacturerBtnNikon);
-            break;
-          case 'Palm':
-            await actions.isVisible(this.locators.manufacturerBtnPalm);
-            break;
-          case 'Sony':
-            await actions.isVisible(this.locators.manufacturerBtnSony);
-            break;
-      }
+        let isVisible;
+        switch (btn) {
+            case 'Apple':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnApple);
+                break;
+            case 'Canon':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnCanon);
+                break;
+            case 'Hewlett-Packard':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnHewlettPackard);
+                break;
+            case 'HTC':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnHTC);
+                break;
+            case 'Nikon':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnNikon);
+                break;
+            case 'Palm':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnPalm);
+                break;
+            case 'Sony':
+                isVisible = await this.page.isVisible(this.locators.manufacturerBtnSony);
+                break;
+            default:
+                isVisible = false;
+        }
+        return isVisible;
     }
 
     async sizeAvailable(size) {
-    
-      let isVisible
-      switch (size) {
-          case 'Large':
-            isVisible = await actions.isVisible(this.locators.sizeLarge);
-            break;
-          case 'Medium':
-            isVisible = await actions.isVisible(this.locators.sizeMedium);
-            break;
-          case 'Small':
-            isVisible = await actions.isVisible(this.locators.sizeSmall);
-            break;
-          case 'XLarge':
-            isVisible = await actions.isVisible(this.locators.sizeXLarge);
-            break;
-          case 'XXLarge':
-            isVisible = await actions.isVisible(this.locators.sizeXXLarge);
-            break;
-      }
-      return isVisible;
+        let isVisible;
+        switch (size) {
+            case 'Large':
+                isVisible = await this.page.isVisible(this.locators.sizeLarge);
+                break;
+            case 'Medium':
+                isVisible = await this.page.isVisible(this.locators.sizeMedium);
+                break;
+            case 'Small':
+                isVisible = await this.page.isVisible(this.locators.sizeSmall);
+                break;
+            case 'XLarge':
+                isVisible = await this.page.isVisible(this.locators.sizeXLarge);
+                break;
+            case 'XXLarge':
+                isVisible = await this.page.isVisible(this.locators.sizeXXLarge);
+                break;
+            default:
+                isVisible = false;
+        }
+        return isVisible;
     }
 
     async selectColor(color) {
-      const colorXPath = this.locators.colorPicker(color);
-      const colorLabel = this.page.locator(colorXPath);
+        const colorXPath = this.locators.colorPicker(color);
+        const colorLabel = this.page.locator(colorXPath);
 
-      try {
-          // Wait for the element to be visible and interactable
-          await colorLabel.waitFor({ state: 'visible' });
-          console.log(`Selecting color: ${color}`);
-          await colorLabel.click();
-      } catch (error) {
-          console.error(`Failed to select color: ${color}`, error);
-          throw error;
+        try {
+            // Wait for the element to be visible and interactable
+            await colorLabel.waitFor({ state: 'visible' });
+            console.log(`Selecting color: ${color}`);
+            await colorLabel.click();
+        } catch (error) {
+            console.error(`Failed to select color: ${color}`, error);
+            throw error;
+        }
       }
-    }
 
     async selectAvailability(availability) {
       const availabilityXPath = this.locators.availabilitySelection(availability);
@@ -274,8 +254,7 @@ class Cameras
           console.error(`Failed to select availability: ${availability}`, error);
           throw error;
       }
-    }
-
+  }
 }
 
-module.exports = { Cameras }
+module.exports = { Cameras };

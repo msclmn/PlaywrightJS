@@ -10,7 +10,8 @@ test.describe.configure({mode:'parallel'});
 
 test.beforeEach(async ({ page }) => { 
   goToPage = await page.goto(baseURLCamerasPage); 
-  camerasMenu = new Cameras(page); });
+  camerasMenu = new Cameras(page); 
+});
 
 test('@Functional Verify a price range can be selected from the fields', runTest(async() => {
   // Fill the minimum price field and verify

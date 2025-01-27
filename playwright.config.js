@@ -12,7 +12,11 @@ module.exports = defineConfig({
     testDir: './Tests',
     timeout: 30000,
     workers: 6, // Will run 6 tests in parallel
+<<<<<<< HEAD
     //retries: 5, // Will retry a test up to 5x, if it fails.
+=======
+    retries: 5, // Will retry a test up to 5x, if it fails.
+>>>>>>> main
 
     reporter: [
         ['list'],
@@ -43,6 +47,18 @@ module.exports = defineConfig({
               trace: 'on-first-retry', // Capture trace for failed tests on first retry
               //...devices['Galaxy S9+'],
               //...devices['iPhone 13']
+            }
+        },
+        {
+          name: 'edge',
+          use: {
+              browserName: 'chromium',
+              channel: 'msedge',
+              headless: false,
+              viewport: { width: 1280, height: 720 },
+              screenshot: 'off', // I have manual screenshot in testLogic
+              video: 'retain-on-failure', // Save videos for failed tests
+              trace: 'on-first-retry', // Capture trace for failed tests on first retry
             }
         },
         {
