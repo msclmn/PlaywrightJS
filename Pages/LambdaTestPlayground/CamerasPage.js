@@ -1,9 +1,4 @@
 const { expect } = require('@playwright/test');
-<<<<<<< HEAD
-const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
-const actions = wrapAsyncMethods(new Actions());
-=======
->>>>>>> main
 const { baseURLPalmSearch, timeout } = require('../../playwright.config');
 
 class Cameras {
