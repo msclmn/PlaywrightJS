@@ -41,27 +41,27 @@ test('Verify the primary headers are displayed on the Blog Page', runTest(async 
 test('Verify you can navigate through the Blog page with the navigation arrows', runTest (async () => {
 
     //Test the Latest Articles blog section
-    expect(await blogPage.clickLatestArticlesNextButton()).toBe(true);
-    expect(await blogPage.clickLatestArticlesNextButton()).toBe(true);
-    expect(await blogPage.clickLatestArticlesNextButton()).toBe(true);
-    expect(await blogPage.clickLatestArticlesPrevButton()).toBe(true);
-    expect(await blogPage.clickLatestArticlesPrevButton()).toBe(true);
-    expect(await blogPage.clickLatestArticlesPrevButton()).toBe(true);
+    await blogPage.clickLatestArticlesNextButton();
+    await blogPage.clickLatestArticlesNextButton();
+    await blogPage.clickLatestArticlesNextButton();
+    await blogPage.clickLatestArticlesPrevButton();
+    await blogPage.clickLatestArticlesPrevButton();
+    await blogPage.clickLatestArticlesPrevButton();
 
     //Test the Most Viewed blog section
-    expect(await blogPage.clickMostViewedNextButton()).toBe(true);
-    expect(await blogPage.clickMostViewedNextButton()).toBe(true);
-    expect(await blogPage.clickMostViewedNextButton()).toBe(true);
-    expect(await blogPage.clickMostViewedPrevButton()).toBe(true);
-    expect(await blogPage.clickMostViewedPrevButton()).toBe(true);
-    expect(await blogPage.clickMostViewedPrevButton()).toBe(true);
+    await blogPage.clickMostViewedNextButton();
+    await blogPage.clickMostViewedNextButton();
+    await blogPage.clickMostViewedNextButton();
+    await blogPage.clickMostViewedPrevButton();
+    await blogPage.clickMostViewedPrevButton();
+    await blogPage.clickMostViewedPrevButton();
 
     //Test the Side Column Latest section
-    expect(await blogPage.clickSideColumnLatestNextButton()).toBe(true);
-    expect(await blogPage.clickSideColumnLatestNextButton()).toBe(true);
-    expect(await blogPage.clickSideColumnLatestNextButton()).toBe(true);
-    expect(await blogPage.clickSideColumnLatestPrevButton()).toBe(true);
-    expect(await blogPage.clickSideColumnLatestPrevButton()).toBe(true);
-    expect(await blogPage.clickSideColumnLatestPrevButton()).toBe(true);
+    await blogPage.clickSideColumnLatestNextButton();
+    await blogPage.clickSideColumnLatestNextButton();
+    await blogPage.clickSideColumnLatestNextButton();
+    await blogPage.clickSideColumnLatestPrevButton();
+    await blogPage.clickSideColumnLatestPrevButton();
+    await blogPage.clickSideColumnLatestPrevButton();
 
 }));

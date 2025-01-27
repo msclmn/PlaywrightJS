@@ -1,12 +1,9 @@
 const { expect } = require('@playwright/test');
-const { Actions, wrapAsyncMethods } = require('../../Utilities/BaseActions/Actions'); 
-const actions = wrapAsyncMethods(new Actions());
 
 class BlogPage 
 {
     constructor(page) {
         this.page = page;
-        actions.page = page;
 
         this.locators = {
             //Navigation
@@ -42,49 +39,44 @@ class BlogPage
     //Methods to click the various buttons on the page
     async clickBlogPage() 
     { 
-        const click = await actions.click(this.locators.navBlog); 
-        return click;
+        await this.page.click(this.locators.navBlog); 
     } 
 
     //Click Button Methods
     async clickLatestArticlesNextButton() 
     {
-        const click = await actions.click(this.locators.blogClickLatestArticlesNextButton);
-        return click;
+        await this.page.click(this.locators.blogClickLatestArticlesNextButton);
     }
+
     async clickMostViewedNextButton() 
     {
-        const click = await actions.click(this.locators.blogClickMostViewedNextButton);
-        return click;
+        await this.page.click(this.locators.blogClickMostViewedNextButton);
     }
     async clickSideColumnLatestNextButton() 
     {
-        const click = await actions.click(this.locators.blogSideColumnLatestNextButton);
-        return click;
+        await this.page.click(this.locators.blogSideColumnLatestNextButton);
     }
     async clickLatestArticlesPrevButton() 
     {
-        const click = await actions.click(this.locators.blogClickLatestArticlesPreviousButton);
-        return click;
+        await this.page.click(this.locators.blogClickLatestArticlesPreviousButton);
     }
     async clickMostViewedPrevButton() 
     {
-        const click = await actions.click(this.locators.blogClickMostViewedPreviousButton);
-        return click;
+        await this.page.click(this.locators.blogClickMostViewedPreviousButton);
     }
     async clickSideColumnLatestPrevButton() 
     {
-        const click = await actions.click(this.locators.blogClickSideColumnLatestPreviousButton);
-        return click;
+        await this.page.click(this.locators.blogClickSideColumnLatestPreviousButton);
     }
 
     //Method using a unformatted locator to check that each category is displayed
     async isBlogSideCategoryDisplayed(blogCategory)
     {   
         let locator = `//*[contains(@class, 'list-group-item') and contains(normalize-space(text()), '${blogCategory}')]`;
-        const result = await actions.getText(locator);
+        //const result = await this.page.getText(locator);
+        let result = await this.page.textContent(locator);
 
-        if(await actions.isVisible(locator) === true)
+        if(await this.page.isVisible(locator) === true)
              {
 
                 if(result === blogCategory)
@@ -100,49 +92,40 @@ class BlogPage
 
     //Method to verify if section Header Titles are displayed
     async isLatestArticleTitleDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogLatestArticlesTitle);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogLatestArticlesTitle);
     }
 
     async isMostViewedTitleDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogMostViewedTitle);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogMostViewedTitle);
     }
 
     async isSideMenuTitleDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogSideMenuTitle);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogSideMenuTitle);
     }
 
     //Methods to verify if previous and next navigation buttons are displayed
     async isLatestArticlesPrevButtonDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogLatestArticlesPreviousButton);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogLatestArticlesPreviousButton);
     }
 
     async isMostViewedPrevButtonDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogMostViewedPreviousButton);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogMostViewedPreviousButton);
     }
 
     async isSideColumnPrevButtonDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogSideColumnLatestPreviousButton);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogSideColumnLatestPreviousButton);
     }
 
     async isLatestArticlesNextButtonDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogLatestArticlesNextButton);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogLatestArticlesNextButton);
     }
 
     async isMostViewedNextButtonDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogMostViewedNextButton);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogMostViewedNextButton);
     }
 
     async isSideColumnNextButtonDisplayed() {
-        const isDisplayed = await actions.isVisible(this.locators.blogSideColumnLatestNextButton);
-        return isDisplayed;
+        return await this.page.isVisible(this.locators.blogSideColumnLatestNextButton);
     }
 }
 
