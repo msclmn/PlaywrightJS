@@ -1,5 +1,5 @@
 const { expect } = require('@playwright/test');
-const { baseURLPalmSearch, timeout } = require('../../playwright.config');
+const { baseURLPalmSearch } = require('../../playwright.config');
 
 class Cameras {
     constructor(page) {
@@ -35,25 +35,55 @@ class Cameras {
             availabilitySelection: (availability) => `(//label[contains(text(), "${availability}")])[2]`,
 
             // product action carousel buttons
-            navActionCarousel: '(//div[contains(@class, "carousel-item active")])[1]',
+            navActionCarousel1: '(//div[contains(@class, "carousel-item active")])[1]',
+            navActionCarousel2: '(//div[contains(@class, "carousel-item active")])[2]',
             addToCartButton: '(//div[contains(@class, "product-action")])[1]//button[1]',
             addToWishListButton: '(//div[contains(@class, "product-action")])[1]//button[2]',
+            quickViewModal: '//div[@id="product-quick-view"]',
             quickViewButton: '(//div[contains(@class, "product-action")])[1]//button[3]',
-            compareButton: '(//div[contains(@class, "product-action")])[1]//button[4]',
-            productQuickVieww: '//div[@id="product-quick-view"]'
+            compareButtonItem1: '(//div[contains(@class, "product-action")])[1]//button[4]',
+            compareButtonItem2: '(//div[contains(@class, "product-action")])[2]//button[4]'
         };
     }
 
-    async hoverActionCarousel() {
-        await this.page.hover(this.locators.navActionCarousel);
+    async hoverActionCarousel1() {
+        await this.page.hover(this.locators.navActionCarousel1);
+    }
+
+    async hoverActionCarousel2() {
+        await this.page.hover(this.locators.navActionCarousel2);
     }
     
     async clickActionAddToCart() {
         await this.page.click(this.locators.addToCartButton);
     }
 
+    async clickActionWhishList() {
+        await this.page.click(this.locators.addToWishListButton);
+    }
+
+    async clickActionQuickView() {
+        await this.page.click(this.locators.quickViewButton);
+    }
+
+    async clickCompareItem1() {
+        await this.page.click(this.locators.compareButtonItem1);
+    }
+
+    async clickCompareItem2() {
+        await this.page.click(this.locators.compareButtonItem2);
+    }
+
     async productActionCarouselVisible() {
-        return await this.page.isVisible(this.locators.navActionCarousel);
+        return await this.page.isVisible(this.locators.navActionCarousel1);
+    }
+
+    async quickViewModalVisible() {
+        return await this.page.isVisible(this.locators.quickViewModal);
+    }
+
+    async waitForquickViewModal() {
+      await this.page.waitForSelector(this.locators.quickViewModal, { state: 'visible', timeout: 3000 });
     }
 
     async sendKeysToSearch(text) {

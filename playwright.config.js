@@ -12,11 +12,7 @@ module.exports = defineConfig({
     testDir: './Tests',
     timeout: 30000,
     workers: 6, // Will run 6 tests in parallel
-<<<<<<< HEAD
-    //retries: 5, // Will retry a test up to 5x, if it fails.
-=======
     retries: 5, // Will retry a test up to 5x, if it fails.
->>>>>>> main
 
     reporter: [
         ['list'],

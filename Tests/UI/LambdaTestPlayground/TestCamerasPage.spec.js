@@ -1,16 +1,19 @@
 const { test, expect } = require('@playwright/test');
 const { baseURLCamerasPage } = require('../../../playwright.config');
 const { Cameras } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/CamerasPage');
+const { Cart } = require('../../../../PlaywrightJS/Pages/LambdaTestPlayground/CartPage');
 const { runTest } = require('../../SetupTest');
 
 let camerasMenu;
+let cartMenu;
 let goToPage;
 
 test.describe.configure({mode:'parallel'});
 
 test.beforeEach(async ({ page }) => { 
   goToPage = await page.goto(baseURLCamerasPage); 
-  camerasMenu = new Cameras(page); 
+  camerasMenu = new Cameras(page);
+  cartMenu = new Cart(page);
 });
 
 test('@Functional Verify a price range can be selected from the fields', runTest(async() => {
@@ -52,10 +55,13 @@ test('@UI Verify all the correct options are displayed in the sort by dropdown',
   }
 }))
 
-test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async () => {
-  expect(await camerasMenu.sidebarHeadersDisplayed('Manufacturer')).toBe(true, 'Manufacturer header should be visible');
-  expect(await camerasMenu.sidebarHeadersDisplayed('Color')).toBe(true, 'Color header should be visible');
-  expect(await camerasMenu.sidebarHeadersDisplayed('Size')).toBe(true, 'Size header should be visible');
+test('@UI Verify the rest of the headers are displayed in the sidebar', runTest(async (page) => {
+  let isVisible = await camerasMenu.sidebarHeadersDisplayed('Manufacturer');
+  expect(isVisible).toBe(true, 'Manufacturer header should be visible');
+  isVisible = await camerasMenu.sidebarHeadersDisplayed('Color');
+  expect(isVisible).toBe(true, 'Color header should be visible');
+  isVisible = await camerasMenu.sidebarHeadersDisplayed('Size');
+  expect(isVisible).toBe(true, 'Size header should be visible');
 }));
 
 test('@Functional Verify an item can be searched via the search field', runTest(async() => {
@@ -65,12 +71,20 @@ test('@Functional Verify an item can be searched via the search field', runTest(
 }))
 
 test('@UI Verify all manufacturers are displayed in the sidebar', runTest(async() => {
-  await camerasMenu.manufacturersDisplayed('Apple');
-  await camerasMenu.manufacturersDisplayed('Canon');
-  await camerasMenu.manufacturersDisplayed('Hewlett-Packard');
-  await camerasMenu.manufacturersDisplayed('HTC');
-  await camerasMenu.manufacturersDisplayed('Palm');
-  await camerasMenu.manufacturersDisplayed('Sony');
+  let isVisible = await camerasMenu.manufacturersDisplayed('Apple');
+  expect(isVisible).toBe(true, 'Apple should be displayed');
+  isVisible = await camerasMenu.manufacturersDisplayed('Canon');
+  expect(isVisible).toBe(true, 'Canon should be displayed');
+  isVisible = await camerasMenu.manufacturersDisplayed('Hewlett-Packard');
+  expect(isVisible).toBe(true, 'Hewlett-Packard should be displayed');
+  isVisible = await camerasMenu.manufacturersDisplayed('HTC');
+  expect(isVisible).toBe(true, 'HTC should be displayed');
+  isVisible = await camerasMenu.manufacturersDisplayed('Nikon');
+  expect(isVisible).toBe(true, 'Nikon should be displayed');
+  isVisible = await camerasMenu.manufacturersDisplayed('Palm');
+  expect(isVisible).toBe(true, 'Palm should be displayed');
+  isVisible = await camerasMenu.manufacturersDisplayed('Sony');
+  expect(isVisible).toBe(true, 'Sony should be displayed');
 }))
 
 test('@Functional Verify all colors can be selected from the color picker', runTest(async({}) => {
@@ -92,33 +106,72 @@ test('@Functional Verify all types of availability can be checked', runTest(asyn
 }))
 
 test('@UI Verify the different sizes are displayed in the sidebar', runTest(async() => {
-  expect(await camerasMenu.sizeAvailable('Large')).toBe(true);
-  expect(await camerasMenu.sizeAvailable('Medium')).toBe(true);
-  expect(await camerasMenu.sizeAvailable('Small')).toBe(true);
-  expect(await camerasMenu.sizeAvailable('XLarge')).toBe(true);
-  expect(await camerasMenu.sizeAvailable('XXLarge')).toBe(true);
+  let isVisible = await camerasMenu.sizeAvailable('Large');
+  expect(isVisible).toBe(true, 'Large should be displayed');
+  isVisible = await camerasMenu.sizeAvailable('Medium');
+  expect(isVisible).toBe(true, 'Medium should be displayed');
+  isVisible = await camerasMenu.sizeAvailable('Small');
+  expect(isVisible).toBe(true, 'Small should be displayed');
+  isVisible = await camerasMenu.sizeAvailable('XLarge');
+  expect(isVisible).toBe(true, 'XLarge should be displayed');
+  isVisible = await camerasMenu.sizeAvailable('XXLarge');
+  expect(isVisible).toBe(true, 'XXLarge should be displayed');
 }))
 
 test('@UI Verify the product action carousel is present on the page', runTest(async() => {
   expect(await camerasMenu.productActionCarouselVisible()).toBe(true);
 }))
 
-//Redo this test using the View Cart and Checkout button from the top
-test('@Functional Verify an item can be added via the product action carousel ', runTest(async() => {
-  await camerasMenu.hoverActionCarousel();
+test('@Functional Verify an item can be added via the product action carousel', runTest(async() => {
+  await camerasMenu.hoverActionCarousel1();
   await camerasMenu.clickActionAddToCart();
-  await camerasMenu.notificationBoxTop();
+
+  // Wait for the buttons to appear before checking visibility
+  await Promise.all([
+    cartMenu.waitForViewCartBtn(),
+    cartMenu.waitForCheckoutBtn()
+  ]);
+
+  const cartVisible = await cartMenu.viewCartVisibleBtn();
+  const checkoutVisible = await cartMenu.checkoutVisibleBtn();
+  expect(cartVisible).toBe(true); 
+  expect(checkoutVisible).toBe(true);
 }))
 
-//Redo this test using the Login and Register button from the top
-test('@Functional Verify an item can be added to the wishlist via the product action carousel ', runTest(async() => {
-  await camerasMenu.hoverActionCarousel();
-  await camerasMenu.clickActionWishlist();
-  await camerasMenu.notificationBoxTop();
+test('@Functional Verify an item can be added to the wishlist via the product action carousel', runTest(async() => {
+  await camerasMenu.hoverActionCarousel1();
+  await camerasMenu.clickActionWhishList();
+
+  // Wait for the buttons to appear before checking visibility
+  await Promise.all([
+    cartMenu.waitForLoginBtn(),
+    cartMenu.waitForRegisterBtn()
+  ]);
+
+  const loginVisible = await cartMenu.loginVisibleBtn();
+  const registerVisible = await cartMenu.registerVisibleBtn();
+  expect(loginVisible).toBe(true);
+  expect(registerVisible).toBe(true);
 }))
 
-test('@Functional Verify the quickview modal appears via the product action carousel ', runTest(async() => {
-  expect(await camerasMenu.hoverActionCarousel()).toBe(true, 'Hovering over the carousel should be successful');
-  expect(await camerasMenu.clickQuickView()).toBe(true, 'Clicking the quick view button should be successful');
-  expect(await camerasMenu.productQuickView()).toBe(true, 'The quick view modal should be visible');
+test('@Functional Verify the quickview modal appears via the product action carousel', runTest(async() => {
+  await camerasMenu.hoverActionCarousel1();
+  await camerasMenu.clickActionQuickView();
+  await camerasMenu.waitForquickViewModal();
+  expect(await camerasMenu.quickViewModalVisible()).toBe(true);
+}))
+
+test('@Functional Verify items can be compared via the product action carousel', runTest(async() => {
+  await camerasMenu.hoverActionCarousel1();
+  await camerasMenu.clickCompareItem1();
+  await camerasMenu.hoverActionCarousel2();
+  await camerasMenu.clickCompareItem2();
+
+  // Wait for the buttons to appear before checking visibility
+  await Promise.all([
+    cartMenu.waitForCompareNotificationBtn(),
+  ]);
+
+  const compareNotificationVisible = await cartMenu.viewCompareNotificationVisibleBtn();
+  expect(compareNotificationVisible).toBe(true);
 }))
