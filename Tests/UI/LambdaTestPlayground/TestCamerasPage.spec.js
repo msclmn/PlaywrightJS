@@ -8,8 +8,6 @@ let camerasMenu;
 let cartMenu;
 let goToPage;
 
-test.describe.configure({mode:'parallel'});
-
 test.beforeEach(async ({ page }) => { 
   goToPage = await page.goto(baseURLCamerasPage); 
   camerasMenu = new Cameras(page);
