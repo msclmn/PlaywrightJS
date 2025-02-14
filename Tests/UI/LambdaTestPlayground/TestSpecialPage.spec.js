@@ -6,8 +6,6 @@ const { runTest } = require('../../SetupTest');
 let specialMenu;
 let goToPage;
 
-test.describe.configure({mode:'parallel'});
-
 test.beforeEach(async ({ page }) => { 
   goToPage = await page.goto(`${baseURLSpecialPage}`); 
   specialMenu = new SpecialMenu(page); });

@@ -10,9 +10,11 @@ module.exports = defineConfig({
     baseURLCanonProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=9',
     baseURLHewlettPackardProductsPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33&mz_fm=7',
     baseURLBlogPage: 'https://ecommerce-playground.lambdatest.io/index.php?route=extension/maza/blog/home',
+    baseURLRegistration: 'https://ecommerce-playground.lambdatest.io/index.php?route=account/register',
     testDir: './Tests',
     timeout: 30000,
     workers: 6, // Will run 6 tests in parallel
+    fullyParallel: true,
     retries: 5, // Will retry a test up to 5x, if it fails.
 
     reporter: [
