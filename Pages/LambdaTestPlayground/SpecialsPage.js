@@ -7,6 +7,15 @@ class SpecialMenu {
         // Locators as variables 
         this.locators = {
             specialOffersHeader: '//h1[text()="Special Offers"]',
+            gridViewIconBtn: "//button[@id='grid-view']",
+            listViewIconBtn: "//button[@id='list-view']",
+            productCompareLink: "//a[contains(text(),'Product Compare')]",
+            copyrightText: "//p[contains(text(),'© LambdaTest - Powered by OpenCart')]",
+            minimumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Minimum Price']",
+            maximumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Maximum Price']",
+            allCollapsingArrows: "//i[@class='fas fa-angle-up ml-auto']",
+
+            //#region header locators
             headerFilter: '//h3[contains(text(),"Filter")]',
             headerPrice: '//div[contains(@class, "mz-filter-group") and contains(@class, "price")]',
             headerSearch: '//div[contains(@class, "mz-filter-group") and contains(@class, "search")]',
@@ -20,14 +29,8 @@ class SpecialMenu {
             headerSoftware: "//a[contains(text(), 'Software') and contains(text(), '(')]",
             headerPhoneAndPDA: "//a[contains(text(), 'Phones') and contains(text(), '(')]",
             headerCameras: "//a[contains(text(), 'Cameras') and contains(text(), '(')]",
-            headerMP3Players: "//a[contains(text(), 'MP3') and contains(text(), '(')]",
-            gridViewIconBtn: "//button[@id='grid-view']",
-            listViewIconBtn: "//button[@id='list-view']",
-            productCompareLink: "//a[contains(text(),'Product Compare')]",
-            copyrightText: "//p[contains(text(),'© LambdaTest - Powered by OpenCart')]",
-            minimumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Minimum Price']",
-            maximumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Maximum Price']",
-            allCollapsingArrows: "//i[@class='fas fa-angle-up ml-auto']"
+            headerMP3Players: "//a[contains(text(), 'MP3') and contains(text(), '(')]"
+            //#endregion
         };
     }
 
