@@ -27,7 +27,7 @@ class Registration {
           messagePasswordMismatch: '//*[text()="Password confirmation does not match password!"]',
           //#endregion
 
-          //#region label locators
+          //#region Label locators
           labelFirstName: '//label[contains(text(),"First Name")]',
           labelLastName: '//label[contains(text(),"Last Name")]',
           labelEmailAddress: '//label[contains(text(),"E-Mail")]',
