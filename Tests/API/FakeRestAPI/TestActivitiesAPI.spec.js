@@ -6,11 +6,6 @@ const { ActivitiesClient } = require('../../../Utilities/APIClient/FakeRestAPI/A
 
 test.describe('Activities API Tests', () => {
 
-    // test.beforeAll(async () => {
-    //     activitiesClient = new ActivitiesClient();
-    //     await activitiesClient.initialize(); // Initialize the client before using it
-    // });
-
     test('Get all activities', async () => {
         const activitiesClient = new ActivitiesClient();
         await activitiesClient.initialize();
