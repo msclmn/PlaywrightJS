@@ -17,7 +17,7 @@ class Registration {
           continueBtn: '//input[@value="Continue"]',
           registrationSuccessMessage: '//*[text()="Your Account Has Been Created!"]',
 
-          // Required field locators
+          //#region message locators
           messageFirstName: '//*[text()="First Name must be between 1 and 32 characters!"]',
           messageLastName: '//*[text()="Last Name must be between 1 and 32 characters!"]',
           messageEmailAddress: '//*[text()="E-Mail Address does not appear to be valid!"]',
@@ -25,8 +25,9 @@ class Registration {
           messagePassword: '//*[text()="Password must be between 4 and 20 characters!"]',
           messagePrivacyWarning: '//*[text()=" Warning: You must agree to the Privacy Policy!"]',
           messagePasswordMismatch: '//*[text()="Password confirmation does not match password!"]',
+          //#endregion
 
-          // Label locators
+          //#region Label locators
           labelFirstName: '//label[contains(text(),"First Name")]',
           labelLastName: '//label[contains(text(),"Last Name")]',
           labelEmailAddress: '//label[contains(text(),"E-Mail")]',
@@ -34,8 +35,9 @@ class Registration {
           labelPassword: '//label[contains(@for,"input-password")]',
           labelPasswordConfirm: '//label[contains(text(),"Password Confirm")]',
           labelSubscribe: '//label[contains(text(),"Subscribe")]',
+          //#endregion
 
-          // Link locators
+          //#region link locators
           linkLogin: '//a[contains(text(),"Login")]',
           linkRegister: '//a[contains(text(),"Register")]',
           linkForgottenPassword: '//a[contains(text(),"Forgotten Password")]',
@@ -49,6 +51,7 @@ class Registration {
           linkReturns: '//a[contains(text(),"Returns")]',
           linkTransactions: '//a[contains(text(),"Transactions")]',
           linkNewsletter: '//a[contains(text(),"Newsletter")]'
+          //#endregion
         };
     }
 

@@ -1,5 +1,8 @@
 const { expect } = require('@playwright/test');
 const { baseURLPalmSearch } = require('../../playwright.config');
+const { baseURLCamerasPage2 } = require('../../playwright.config');
+const { baseURLCamerasPage } = require('../../playwright.config');
+const { baseURLLastPage } = require('../../playwright.config');
 
 class Cameras {
     constructor(page) {
@@ -7,6 +10,18 @@ class Cameras {
 
         // Locators as variables
         this.locators = {
+
+            //#region manufacturer locators
+            manufacturerBtnApple: '//label[@for="mz-fm-0-8"]',
+            manufacturerBtnCanon: '//label[@for="mz-fm-0-9"]',
+            manufacturerBtnHewlettPackard: '//label[@for="mz-fm-0-7"]',
+            manufacturerBtnHTC: '//label[@for="mz-fm-0-5"]',
+            manufacturerBtnNikon: '//label[@for="mz-fm-0-11"]',
+            manufacturerBtnPalm: '//label[@for="mz-fm-0-6"]',
+            manufacturerBtnSony: '//label[@for="mz-fm-0-10"]',
+            //#endregion
+
+            //#region other locators
             headerCameras: "//a[contains(text(), 'Cameras') and contains(text(), '(')]",
             minimumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Minimum Price']",
             maximumPriceField: "//div[@id='mz-filter-panel-0-0']//input[@placeholder='Maximum Price']",
@@ -18,32 +33,98 @@ class Cameras {
             headerColor: '//div[@class="mz-filter-group-header "][normalize-space()="Color"][1]',
             headerSize: '//div[@class="mz-filter-group-header "][normalize-space()="Size"][1]',
             searchField: '//*[@id="mz-filter-panel-0-3"]/div/input',
-            manufacturerBtnApple: '//label[@for="mz-fm-0-8"]',
-            manufacturerBtnCanon: '//label[@for="mz-fm-0-9"]',
-            manufacturerBtnHewlettPackard: '//label[@for="mz-fm-0-7"]',
-            manufacturerBtnHTC: '//label[@for="mz-fm-0-5"]',
-            manufacturerBtnNikon: '//label[@for="mz-fm-0-11"]',
-            manufacturerBtnPalm: '//label[@for="mz-fm-0-6"]',
-            manufacturerBtnSony: '//label[@for="mz-fm-0-10"]',
             sizeLarge: '//label[@for="mz-fc-0-38"]',
             sizeMedium: '//label[@for="mz-fc-0-39"]',
             sizeSmall: '//label[@for="mz-fc-0-40"]',
             sizeXLarge: '//label[@for="mz-fc-0-36"]',
             sizeXXLarge: '//label[@for="mz-fc-0-37"]',
-            notificationActionCarousel: '//div[@id="notification-box-top"]',
+            nextPage: '(//a[@class="page-link"][contains(.,">")])[1]',
+            previousPage: '(//a[@class="page-link"][contains(.,"<")])[2]',
+            lastPage: '//a[contains(text(),">|")]',
+            firstPage: '//a[contains(text(),"|<")]',
+            gridViewBtn: '//button[@id="grid-view"]',
+            listViewBtn: '//button[@id="list-view"]',
+            listView: '(//div[@class="product-layout product-list col-12"])[1]',
             colorPicker: (color) => `(//img[@alt="${color}"])[2]`,
             availabilitySelection: (availability) => `(//label[contains(text(), "${availability}")])[2]`,
+            //#endregion
 
-            // product action carousel buttons
+            //#region product action carousel buttons
             navActionCarousel1: '(//div[contains(@class, "carousel-item active")])[1]',
             navActionCarousel2: '(//div[contains(@class, "carousel-item active")])[2]',
+            navActionCarousel3: '(//div[contains(@class, "carousel-item active")])[3]',
+            navActionCarousel8: '(//div[contains(@class, "carousel-item active")])[8]',
             addToCartButton: '(//div[contains(@class, "product-action")])[1]//button[1]',
             addToWishListButton: '(//div[contains(@class, "product-action")])[1]//button[2]',
+            quickViewButtonItem1: '(//div[contains(@class, "product-action")])[1]//button[3]',
+            quickViewButtonItem3: '(//div[contains(@class, "product-action")])[3]//button[3]',
+            quickViewButtonItem8: '(//div[contains(@class, "product-action")])[8]//button[3]',
             quickViewModal: '//div[@id="product-quick-view"]',
-            quickViewButton: '(//div[contains(@class, "product-action")])[1]//button[3]',
             compareButtonItem1: '(//div[contains(@class, "product-action")])[1]//button[4]',
-            compareButtonItem2: '(//div[contains(@class, "product-action")])[2]//button[4]'
+            compareButtonItem2: '(//div[contains(@class, "product-action")])[2]//button[4]',
+            //#endregion
+
+            //#region quickview modal locators
+            labelBrand: '//span[contains(text(),"Brand:")]',
+            labelProductCode: '//span[contains(text(),"Product Code:")]',
+            labelRewardPoints: '//span[contains(text(),"Reward Points:")]',
+            labelAvailability: '//span[contains(text(),"Availability:")]',
+            addToCart: '//button[contains(text(),"Add to Cart")]',
+            buyNow: '//button[contains(text(),"Buy now")]',
+            minusBtn: '//i[@class="fas fa-minus-circle"]',
+            plusBtn: '//i[@class="fas fa-plus-circle"]',
+            buttonCloseX: '//button[@aria-label="close"]'
+            //#endregion
         };
+    }
+
+    async quickViewModalAddToCart() {
+        await this.page.click(this.locators.addToCart);
+    }
+
+    async clickListView() {
+        await this.page.click(this.locators.listViewBtn);
+    }
+
+    async clickXBtn() {
+        await this.page.click(this.locators.buttonCloseX);
+        await this.page.waitForSelector(this.locators.quickViewModal, { state: 'hidden' });
+    }
+
+    async clickNextPage() {
+        await this.page.click(this.locators.nextPage);
+    }
+  
+    async clickPreviousPage() {
+        await this.page.click(this.locators.previousPage);
+    }
+
+    async isNextPageDisplayed() {
+        const currentURL = await this.page.url();
+        return currentURL === baseURLCamerasPage2;
+    }
+
+    async isPreviousPageDisplayed() {
+        const currentURL = await this.page.url();
+        return currentURL === baseURLCamerasPage;
+    }
+
+    async clickLastPage() {
+        await this.page.click(this.locators.lastPage);
+    }
+
+    async clickFirstPage() {
+        await this.page.click(this.locators.firstPage);
+    }
+
+    async isLastPageDisplayed() {
+        const currentURL = await this.page.url();
+        return currentURL === baseURLLastPage;
+    }
+
+    async isFirstPageDisplayed() {
+        const currentURL = await this.page.url();
+        return currentURL === baseURLCamerasPage;
     }
 
     async hoverActionCarousel1() {
@@ -52,6 +133,14 @@ class Cameras {
 
     async hoverActionCarousel2() {
         await this.page.hover(this.locators.navActionCarousel2);
+    }
+
+    async hoverActionCarousel3() {
+        await this.page.hover(this.locators.navActionCarousel3);
+    }
+
+    async hoverActionCarousel8() {
+        await this.page.hover(this.locators.navActionCarousel8);
     }
     
     async clickActionAddToCart() {
@@ -62,8 +151,16 @@ class Cameras {
         await this.page.click(this.locators.addToWishListButton);
     }
 
-    async clickActionQuickView() {
-        await this.page.click(this.locators.quickViewButton);
+    async clickActionQuickViewItem1() {
+        await this.page.click(this.locators.quickViewButtonItem1);
+    }
+
+    async clickActionQuickViewItem3() {
+        await this.page.click(this.locators.quickViewButtonItem3);
+    }
+
+    async clickActionQuickViewItem8() {
+        await this.page.click(this.locators.quickViewButtonItem8);
     }
 
     async clickCompareItem1() {
@@ -76,6 +173,10 @@ class Cameras {
 
     async productActionCarouselVisible() {
         return await this.page.isVisible(this.locators.navActionCarousel1);
+    }
+
+    async listViewPageDisplayed() {
+      return await this.page.isVisible(this.locators.listView);
     }
 
     async quickViewModalVisible() {
@@ -264,7 +365,7 @@ class Cameras {
             console.error(`Failed to select color: ${color}`, error);
             throw error;
         }
-      }
+    }
 
     async selectAvailability(availability) {
       const availabilityXPath = this.locators.availabilitySelection(availability);
@@ -279,7 +380,41 @@ class Cameras {
           console.error(`Failed to select availability: ${availability}`, error);
           throw error;
       }
-  }
+
+    }
+
+    async quickViewModalLabels(label) {
+      let isVisible;
+      switch (label) {
+          case 'Brand':
+              isVisible = await this.page.isVisible(this.locators.labelBrand);
+              break;
+          case 'Product Code':
+              isVisible = await this.page.isVisible(this.locators.labelProductCode);
+              break;
+          case 'Reward Points':
+              isVisible = await this.page.isVisible(this.locators.labelRewardPoints);
+              break;
+          case 'Availability':
+              isVisible = await this.page.isVisible(this.locators.labelAvailability);
+              break;
+          default:
+              isVisible = false;
+      }
+      return isVisible;
+    }
+
+    async mainBtnsVisible() {
+        const addToCartVisible = await this.page.isVisible(this.locators.addToCart);
+        const buyNowVisible = await this.page.isVisible(this.locators.buyNow);
+        return { addToCartVisible, buyNowVisible };
+    }
+
+    async minusPlusBtnsVisible() {
+      const minusBtnVisible = await this.page.isVisible(this.locators.minusBtn);
+      const plusBtnVisible = await this.page.isVisible(this.locators.plusBtn);
+      return { minusBtnVisible, plusBtnVisible };
+    }
 }
 
 module.exports = { Cameras };
